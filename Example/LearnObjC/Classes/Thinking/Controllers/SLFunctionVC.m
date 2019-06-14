@@ -1,22 +1,23 @@
 //
-//  ViewController.m
+//  SLFunctionVC.m
 //  LearnObjC
 //
 //  Created by CoderSLZeng on 2019/6/14.
 //  Copyright © 2019 CoderSLZeng. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "SLFunctionVC.h"
 
-@interface ViewController ()
+@interface SLFunctionVC ()
 
 @end
 
-@implementation ViewController
+@implementation SLFunctionVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 

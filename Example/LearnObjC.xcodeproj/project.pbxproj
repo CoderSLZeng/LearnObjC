@@ -8,13 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DD9922B38A9B009C4963 /* AppDelegate.m */; };
-		AE73DD9D22B38A9B009C4963 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DD9C22B38A9B009C4963 /* ViewController.m */; };
 		AE73DDA022B38A9B009C4963 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE73DD9E22B38A9B009C4963 /* Main.storyboard */; };
 		AE73DDA222B38A9D009C4963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE73DDA122B38A9D009C4963 /* Assets.xcassets */; };
 		AE73DDA522B38A9D009C4963 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE73DDA322B38A9D009C4963 /* LaunchScreen.storyboard */; };
 		AE73DDA822B38A9D009C4963 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDA722B38A9D009C4963 /* main.m */; };
 		AE73DDB222B38A9E009C4963 /* LearnObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDB122B38A9E009C4963 /* LearnObjCTests.m */; };
 		AE73DDBD22B38A9E009C4963 /* LearnObjCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDBC22B38A9E009C4963 /* LearnObjCUITests.m */; };
+		AE73DDCE22B38CFD009C4963 /* SLHomeTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDCD22B38CFD009C4963 /* SLHomeTVC.m */; };
+		AE73DDD422B39160009C4963 /* SLChianVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD322B39160009C4963 /* SLChianVC.m */; };
+		AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD622B391E6009C4963 /* SLObserverVC.m */; };
+		AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD922B391F5009C4963 /* SLFunctionVC.m */; };
+		AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +42,6 @@
 		AE73DD9522B38A9B009C4963 /* LearnObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE73DD9822B38A9B009C4963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AE73DD9922B38A9B009C4963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AE73DD9B22B38A9B009C4963 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AE73DD9C22B38A9B009C4963 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AE73DD9F22B38A9B009C4963 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AE73DDA122B38A9D009C4963 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE73DDA422B38A9D009C4963 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +53,16 @@
 		AE73DDB822B38A9E009C4963 /* LearnObjCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LearnObjCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE73DDBC22B38A9E009C4963 /* LearnObjCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearnObjCUITests.m; sourceTree = "<group>"; };
 		AE73DDBE22B38A9E009C4963 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE73DDCC22B38CFD009C4963 /* SLHomeTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLHomeTVC.h; sourceTree = "<group>"; };
+		AE73DDCD22B38CFD009C4963 /* SLHomeTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLHomeTVC.m; sourceTree = "<group>"; };
+		AE73DDD222B39160009C4963 /* SLChianVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLChianVC.h; sourceTree = "<group>"; };
+		AE73DDD322B39160009C4963 /* SLChianVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLChianVC.m; sourceTree = "<group>"; };
+		AE73DDD522B391E6009C4963 /* SLObserverVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLObserverVC.h; sourceTree = "<group>"; };
+		AE73DDD622B391E6009C4963 /* SLObserverVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLObserverVC.m; sourceTree = "<group>"; };
+		AE73DDD822B391F5009C4963 /* SLFunctionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLFunctionVC.h; sourceTree = "<group>"; };
+		AE73DDD922B391F5009C4963 /* SLFunctionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLFunctionVC.m; sourceTree = "<group>"; };
+		AE73DDDC22B39BD3009C4963 /* SLCalculatorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCalculatorManager.h; sourceTree = "<group>"; };
+		AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCalculatorManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +113,9 @@
 		AE73DD9722B38A9B009C4963 /* LearnObjC */ = {
 			isa = PBXGroup;
 			children = (
+				AE73DDCA22B38CA5009C4963 /* Classes */,
 				AE73DD9822B38A9B009C4963 /* AppDelegate.h */,
 				AE73DD9922B38A9B009C4963 /* AppDelegate.m */,
-				AE73DD9B22B38A9B009C4963 /* ViewController.h */,
-				AE73DD9C22B38A9B009C4963 /* ViewController.m */,
 				AE73DD9E22B38A9B009C4963 /* Main.storyboard */,
 				AE73DDA122B38A9D009C4963 /* Assets.xcassets */,
 				AE73DDA322B38A9D009C4963 /* LaunchScreen.storyboard */,
@@ -130,6 +141,63 @@
 				AE73DDBE22B38A9E009C4963 /* Info.plist */,
 			);
 			path = LearnObjCUITests;
+			sourceTree = "<group>";
+		};
+		AE73DDCA22B38CA5009C4963 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AE73DDCF22B38D0E009C4963 /* Home */,
+				AE73DDD022B390EC009C4963 /* Thinking */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		AE73DDCB22B38CAD009C4963 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AE73DDCC22B38CFD009C4963 /* SLHomeTVC.h */,
+				AE73DDCD22B38CFD009C4963 /* SLHomeTVC.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AE73DDCF22B38D0E009C4963 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				AE73DDCB22B38CAD009C4963 /* Controllers */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		AE73DDD022B390EC009C4963 /* Thinking */ = {
+			isa = PBXGroup;
+			children = (
+				AE73DDDB22B39AA3009C4963 /* Tools */,
+				AE73DDD122B390FD009C4963 /* Controllers */,
+			);
+			path = Thinking;
+			sourceTree = "<group>";
+		};
+		AE73DDD122B390FD009C4963 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AE73DDD222B39160009C4963 /* SLChianVC.h */,
+				AE73DDD322B39160009C4963 /* SLChianVC.m */,
+				AE73DDD522B391E6009C4963 /* SLObserverVC.h */,
+				AE73DDD622B391E6009C4963 /* SLObserverVC.m */,
+				AE73DDD822B391F5009C4963 /* SLFunctionVC.h */,
+				AE73DDD922B391F5009C4963 /* SLFunctionVC.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		AE73DDDB22B39AA3009C4963 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AE73DDDC22B39BD3009C4963 /* SLCalculatorManager.h */,
+				AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +262,7 @@
 		AE73DD8D22B38A9B009C4963 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = SL;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = CoderSLZeng;
 				TargetAttributes = {
@@ -262,9 +331,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE73DD9D22B38A9B009C4963 /* ViewController.m in Sources */,
+				AE73DDCE22B38CFD009C4963 /* SLHomeTVC.m in Sources */,
+				AE73DDD422B39160009C4963 /* SLChianVC.m in Sources */,
 				AE73DDA822B38A9D009C4963 /* main.m in Sources */,
+				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
 				AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */,
+				AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */,
+				AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,13 +511,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CF3ZTC43YH;
 				INFOPLIST_FILE = LearnObjC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.CoderSLZeng.LearnObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -455,13 +529,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CF3ZTC43YH;
 				INFOPLIST_FILE = LearnObjC/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.CoderSLZeng.LearnObjC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
