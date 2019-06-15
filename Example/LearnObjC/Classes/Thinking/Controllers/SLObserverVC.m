@@ -38,6 +38,7 @@
 
 #pragma mark - Test function
 - (void)testNormal {
+    // self.person.isa == SLPerson
     self.person = [[SLPerson alloc] init];
     self.person.age = 17;
     [self.person addObserver:self forKeyPath:@"age" options:NSKeyValueObservingOptionNew context:nil];

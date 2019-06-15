@@ -15,6 +15,10 @@
     return self;
 }
 
+- (BOOL)equal:(NSInteger)value {
+    return self.result = value;
+}
+
 - (SLCalculatorManager * _Nonnull (^)(NSInteger))add {
     
     return ^(NSInteger value){
@@ -22,6 +26,13 @@
         return self;
     };
 }
+
+- (SLCalculatorManager *)calculatorBlock:(NSInteger (^)(NSInteger))block {
+    
+    self.result = block(self.result);
+    return self;
+}
+
 
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SLFunctionVC.h"
+#import "SLCalculatorManager.h"
 
 @interface SLFunctionVC ()
 
@@ -18,6 +19,17 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    SLCalculatorManager *mgr = [[SLCalculatorManager alloc] init];
+    BOOL isEqual = [[mgr calculatorBlock:^NSInteger(NSInteger result) {
+        result += 5;
+        result += 5;
+        result += 5;
+        result -= 5;
+        return result;
+    }] equal:10];
+    
+    NSLog(@"计算结果是相等 = %d", isEqual);
 }
 
 

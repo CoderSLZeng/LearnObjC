@@ -16,8 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (SLCalculatorManager *)add:(NSInteger)value;
 
-#pragma mark - 链式支持
+- (BOOL)equal:(NSInteger)value;
+#pragma mark - Chian support
 - (SLCalculatorManager *(^)(NSInteger))add;
+
+#pragma mark - Function support
+- (SLCalculatorManager *)calculatorBlock:(NSInteger (^)(NSInteger))block;
+
+
 
 @end
 
