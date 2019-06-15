@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24E7AE22B482C2006A3273 /* SLPerson.m */; };
+		AE24E7B322B48829006A3273 /* NSObject+KVO.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24E7B222B48829006A3273 /* NSObject+KVO.m */; };
+		AE24E7B622B48979006A3273 /* NSKVONotifying_SLPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24E7B522B48979006A3273 /* NSKVONotifying_SLPerson.m */; };
 		AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DD9922B38A9B009C4963 /* AppDelegate.m */; };
 		AE73DDA022B38A9B009C4963 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE73DD9E22B38A9B009C4963 /* Main.storyboard */; };
 		AE73DDA222B38A9D009C4963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE73DDA122B38A9D009C4963 /* Assets.xcassets */; };
@@ -39,6 +42,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AE24E7AD22B482C2006A3273 /* SLPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLPerson.h; sourceTree = "<group>"; };
+		AE24E7AE22B482C2006A3273 /* SLPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLPerson.m; sourceTree = "<group>"; };
+		AE24E7B122B48829006A3273 /* NSObject+KVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+KVO.h"; sourceTree = "<group>"; };
+		AE24E7B222B48829006A3273 /* NSObject+KVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KVO.m"; sourceTree = "<group>"; };
+		AE24E7B422B48979006A3273 /* NSKVONotifying_SLPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSKVONotifying_SLPerson.h; sourceTree = "<group>"; };
+		AE24E7B522B48979006A3273 /* NSKVONotifying_SLPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSKVONotifying_SLPerson.m; sourceTree = "<group>"; };
 		AE73DD9522B38A9B009C4963 /* LearnObjC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnObjC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE73DD9822B38A9B009C4963 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AE73DD9922B38A9B009C4963 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -90,6 +99,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE24E7AC22B482B5006A3273 /* SLPerson */ = {
+			isa = PBXGroup;
+			children = (
+				AE24E7AD22B482C2006A3273 /* SLPerson.h */,
+				AE24E7AE22B482C2006A3273 /* SLPerson.m */,
+				AE24E7B422B48979006A3273 /* NSKVONotifying_SLPerson.h */,
+				AE24E7B522B48979006A3273 /* NSKVONotifying_SLPerson.m */,
+			);
+			path = SLPerson;
+			sourceTree = "<group>";
+		};
+		AE24E7B022B4877A006A3273 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				AE24E7B122B48829006A3273 /* NSObject+KVO.h */,
+				AE24E7B222B48829006A3273 /* NSObject+KVO.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		AE73DD8C22B38A9B009C4963 = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +201,8 @@
 		AE73DDD022B390EC009C4963 /* Thinking */ = {
 			isa = PBXGroup;
 			children = (
+				AE24E7B022B4877A006A3273 /* Category */,
+				AE24E7AC22B482B5006A3273 /* SLPerson */,
 				AE73DDDB22B39AA3009C4963 /* Tools */,
 				AE73DDD122B390FD009C4963 /* Controllers */,
 			);
@@ -334,10 +365,13 @@
 				AE73DDCE22B38CFD009C4963 /* SLHomeTVC.m in Sources */,
 				AE73DDD422B39160009C4963 /* SLChianVC.m in Sources */,
 				AE73DDA822B38A9D009C4963 /* main.m in Sources */,
+				AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */,
 				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
+				AE24E7B622B48979006A3273 /* NSKVONotifying_SLPerson.m in Sources */,
 				AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */,
 				AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */,
 				AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */,
+				AE24E7B322B48829006A3273 /* NSObject+KVO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
