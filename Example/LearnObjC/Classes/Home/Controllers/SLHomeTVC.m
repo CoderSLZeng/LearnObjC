@@ -70,7 +70,8 @@
              @"链式编程思想-SLChianVC",
              @"响应式编程思想-SLObserverVC",
              @"函数式编程思想-SLFunctionVC",
-             @"super和superclass区别-SLSuperOrSuperClassVC"
+             @"super和superclass区别-SLSuperOrSuperClassVC",
+             @"ReactiveCocoa-SLRACVC"
              ];
 }
 @end
