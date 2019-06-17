@@ -7,11 +7,22 @@
 //
 
 #import "SLRACVC.h"
+
+#pragma mark - Frameworks
 #import <ReactiveObjC/ReactiveObjC.h>
+
+#pragma mark - Views
 #import "SLCustomRACView.h"
+#import "SLContryView.h"
 
-@interface SLRACVC () <SLCustomRACViewDelegate>
+#pragma mark - Models
+#import "SLCountryModel.h"
 
+@interface SLRACVC () <SLCustomRACViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+/** 国家选择器视图 */
+@property (strong, nonatomic) UIPickerView *pickerView;
+/** 国家数据源 */
+@property (strong, nonatomic) NSArray<SLCountryModel *> *contries;
 @end
 
 @implementation SLRACVC
@@ -27,16 +38,55 @@
     
     [self setupUI];
     
+    [self useRACTuple];
+    
 }
 
 #pragma mark - Setup UI
-
 - (void)setupUI {
     [self useDelegateAction];
-    [self userRACSubjectAction];
+    [self useRACSubjectAction];
+    [self setupContryBtn];
+    
 }
 
-- (void)userRACSubjectAction {
+- (void)setupContryBtn {
+    UIButton *btn = [[UIButton alloc] init];
+    btn.frame = CGRectMake(50, 300, 300, 30);
+    btn.backgroundColor = [UIColor blueColor];
+    [btn setTitle:@"点击显示选择国家选择器" forState:UIControlStateNormal];
+    [btn setTitle:@"点击隐藏选择国家选择器" forState:UIControlStateSelected];
+    [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+    [btn addTarget:self action:@selector(didContryButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+/**
+ RAC集合:异步线程处理数据
+ */
+- (void)useRACTuple {
+    NSDictionary *dict = @{
+                           @"name" : @"jack",
+                           @"age"  : @18,
+                           @"height" : @176,
+                           };
+    
+    [dict.rac_sequence.signal subscribeNext:^(id  _Nullable x) {
+        // 把元组解析出来
+        RACTupleUnpack(NSString *key, id value) = x;
+        NSLog(@"把元组解析出来 key = %@, value = %@, 线程 = %@", key, value, [NSThread currentThread]);
+        
+        NSString *k = x[0];
+        NSString *k2 = x[1];
+        NSLog(@"把元组解析出来 k = %@, k2 = %@, 线程 = %@", k, k2, [NSThread currentThread]);
+    }];
+    
+    // 把值包装成元组
+    RACTuple *tuple = RACTuplePack(@1, @2, @3);
+    NSLog(@"把值包装成元组 = %@, 线程 = %@", tuple, [NSThread currentThread]);
+}
+
+- (void)useRACSubjectAction {
     SLCustomRACView *view = [[SLCustomRACView alloc] init];
     view.backgroundColor = [UIColor greenColor];
     view.frame = CGRectMake(200, 100, 100, 100);
@@ -61,6 +111,84 @@
     [self.view addSubview:view];
     view.delegate = self;
 }
+
+#pragma mark - Action
+- (void)didContryButton:(UIButton *)btn {
+    
+    btn.selected = !btn.isSelected;
+    self.pickerView.hidden = !btn.isSelected;
+}
+
+#pragma mark - Getter
+- (UIPickerView *)pickerView {
+    if (!_pickerView) {
+        _pickerView = [[UIPickerView alloc] init];
+        CGFloat height = 150;
+        _pickerView.frame = CGRectMake(0, self.view.frame.size.height - height * 1.5, self.view.frame.size.width, height);
+        _pickerView.dataSource = self;
+        _pickerView.delegate = self;
+        [self.view addSubview:_pickerView];
+    }
+    
+    return _pickerView;
+}
+
+- (NSArray<SLCountryModel *> *)contries {
+    if (!_contries) {
+        NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"flags" ofType:@"plist"];
+        NSArray *datas = [NSArray arrayWithContentsOfFile:filePath];
+        
+        _contries = [[datas.rac_sequence map:^id _Nullable(id  _Nullable value) {
+            SLCountryModel *model = [[SLCountryModel alloc] init];
+            [model setValuesForKeysWithDictionary:value];
+            return model;
+        }] array];
+        
+    }
+    
+    return _contries;
+}
+
+
+#pragma mark - UIPickerViewDataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.contries.count;
+}
+
+#pragma mark - UIPickerViewDataDelegate
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component {
+    SLCountryModel *countryModel = self.contries[row];
+    return countryModel.name;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView
+            viewForRow:(NSInteger)row
+          forComponent:(NSInteger)component
+           reusingView:(UIView *)view {
+    SLContryView *countryView = (SLContryView *)view;
+    
+    if (countryView == nil) {
+        countryView = [SLContryView countryView];
+    }
+    
+    SLCountryModel *countryModel = self.contries[row];
+    countryView.nameLabel.text = countryModel.name;
+    NSString *iconFilePath = [[NSBundle bundleForClass:[self class]] pathForResource:countryModel.icon ofType:nil];
+    countryView.iconImageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
+    
+    return countryView;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 120;
+}
+
 
 #pragma mark - SLCustomRACViewDelegate
 - (void)customRACViewDidTouchesBegan:(SLCustomRACView *)view {

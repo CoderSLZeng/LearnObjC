@@ -27,6 +27,24 @@
 		AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD922B391F5009C4963 /* SLFunctionVC.m */; };
 		AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */; };
 		AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */; };
+		AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DE622B76A80004946D5 /* SLCountryModel.m */; };
+		AE9B2DEA22B76B96004946D5 /* SLContryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DE922B76B96004946D5 /* SLContryView.m */; };
+		AE9B2DEE22B76BB8004946D5 /* SLContryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DED22B76BB8004946D5 /* SLContryView.xib */; };
+		AE9B2E0022B76EA2004946D5 /* ydl.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF122B76EA2004946D5 /* ydl.gif */; };
+		AE9B2E0122B76EA2004946D5 /* putaoya.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF222B76EA2004946D5 /* putaoya.gif */; };
+		AE9B2E0222B76EA2004946D5 /* helan.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF322B76EA2004946D5 /* helan.gif */; };
+		AE9B2E0322B76EA2004946D5 /* wlgui.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF422B76EA2004946D5 /* wlgui.gif */; };
+		AE9B2E0422B76EA2004946D5 /* hanguo.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF522B76EA2004946D5 /* hanguo.gif */; };
+		AE9B2E0522B76EA2004946D5 /* ruishi.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF622B76EA2004946D5 /* ruishi.gif */; };
+		AE9B2E0622B76EA2004946D5 /* deguo.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF722B76EA2004946D5 /* deguo.gif */; };
+		AE9B2E0722B76EA2004946D5 /* agt.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF822B76EA2004946D5 /* agt.gif */; };
+		AE9B2E0822B76EA2004946D5 /* faguo.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DF922B76EA2004946D5 /* faguo.gif */; };
+		AE9B2E0922B76EA2004946D5 /* xiby.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DFA22B76EA2004946D5 /* xiby.gif */; };
+		AE9B2E0A22B76EA2004946D5 /* baxi.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DFB22B76EA2004946D5 /* baxi.gif */; };
+		AE9B2E0B22B76EA2004946D5 /* ruidian.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DFC22B76EA2004946D5 /* ruidian.gif */; };
+		AE9B2E0C22B76EA2004946D5 /* ying.gif in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DFD22B76EA2004946D5 /* ying.gif */; };
+		AE9B2E0D22B76EA2004946D5 /* zhongguo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DFE22B76EA2004946D5 /* zhongguo.jpg */; };
+		AE9B2E0E22B76EA2004946D5 /* flags.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE9B2DFF22B76EA2004946D5 /* flags.plist */; };
 		C4DDB338AEB9B1FB329AB069 /* Pods_LearnObjCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D504F096E730BFCD6C08332 /* Pods_LearnObjCTests.framework */; };
 		DC15220F535D12E6CB402368 /* Pods_LearnObjCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2297D248B52361B04A510BFE /* Pods_LearnObjCUITests.framework */; };
 		DC24A6FE26ED13C61330BEFD /* Pods_LearnObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78B6385174A764E33C9F800 /* Pods_LearnObjC.framework */; };
@@ -95,6 +113,26 @@
 		AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCalculatorManager.m; sourceTree = "<group>"; };
 		AE9B2DDE22B7450A004946D5 /* SLCustomRACView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCustomRACView.h; sourceTree = "<group>"; };
 		AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCustomRACView.m; sourceTree = "<group>"; };
+		AE9B2DE522B76A80004946D5 /* SLCountryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCountryModel.h; sourceTree = "<group>"; };
+		AE9B2DE622B76A80004946D5 /* SLCountryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCountryModel.m; sourceTree = "<group>"; };
+		AE9B2DE822B76B96004946D5 /* SLContryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLContryView.h; sourceTree = "<group>"; };
+		AE9B2DE922B76B96004946D5 /* SLContryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLContryView.m; sourceTree = "<group>"; };
+		AE9B2DED22B76BB8004946D5 /* SLContryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLContryView.xib; sourceTree = "<group>"; };
+		AE9B2DF122B76EA2004946D5 /* ydl.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ydl.gif; sourceTree = "<group>"; };
+		AE9B2DF222B76EA2004946D5 /* putaoya.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = putaoya.gif; sourceTree = "<group>"; };
+		AE9B2DF322B76EA2004946D5 /* helan.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = helan.gif; sourceTree = "<group>"; };
+		AE9B2DF422B76EA2004946D5 /* wlgui.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = wlgui.gif; sourceTree = "<group>"; };
+		AE9B2DF522B76EA2004946D5 /* hanguo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = hanguo.gif; sourceTree = "<group>"; };
+		AE9B2DF622B76EA2004946D5 /* ruishi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ruishi.gif; sourceTree = "<group>"; };
+		AE9B2DF722B76EA2004946D5 /* deguo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = deguo.gif; sourceTree = "<group>"; };
+		AE9B2DF822B76EA2004946D5 /* agt.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = agt.gif; sourceTree = "<group>"; };
+		AE9B2DF922B76EA2004946D5 /* faguo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = faguo.gif; sourceTree = "<group>"; };
+		AE9B2DFA22B76EA2004946D5 /* xiby.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = xiby.gif; sourceTree = "<group>"; };
+		AE9B2DFB22B76EA2004946D5 /* baxi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = baxi.gif; sourceTree = "<group>"; };
+		AE9B2DFC22B76EA2004946D5 /* ruidian.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ruidian.gif; sourceTree = "<group>"; };
+		AE9B2DFD22B76EA2004946D5 /* ying.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ying.gif; sourceTree = "<group>"; };
+		AE9B2DFE22B76EA2004946D5 /* zhongguo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zhongguo.jpg; sourceTree = "<group>"; };
+		AE9B2DFF22B76EA2004946D5 /* flags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = flags.plist; sourceTree = "<group>"; };
 		B626BC54EA8B1BA9A0CA2E3F /* Pods-LearnObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnObjC.debug.xcconfig"; path = "Target Support Files/Pods-LearnObjC/Pods-LearnObjC.debug.xcconfig"; sourceTree = "<group>"; };
 		C6510E1929C7A83E01290364 /* Pods-LearnObjCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnObjCUITests.debug.xcconfig"; path = "Target Support Files/Pods-LearnObjCUITests/Pods-LearnObjCUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF3141B73994785DC184517B /* Pods-LearnObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnObjC.release.xcconfig"; path = "Target Support Files/Pods-LearnObjC/Pods-LearnObjC.release.xcconfig"; sourceTree = "<group>"; };
@@ -169,7 +207,9 @@
 		AE24E7C322B497CD006A3273 /* RAC */ = {
 			isa = PBXGroup;
 			children = (
-				AE9B2DDD22B744E2004946D5 /* View */,
+				AE9B2DEF22B76E7B004946D5 /* Sources */,
+				AE9B2DE422B76A68004946D5 /* Models */,
+				AE9B2DDD22B744E2004946D5 /* Views */,
 				AE24E7C422B497D5006A3273 /* Controllers */,
 			);
 			path = RAC;
@@ -301,13 +341,55 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
-		AE9B2DDD22B744E2004946D5 /* View */ = {
+		AE9B2DDD22B744E2004946D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				AE9B2DDE22B7450A004946D5 /* SLCustomRACView.h */,
 				AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */,
+				AE9B2DE822B76B96004946D5 /* SLContryView.h */,
+				AE9B2DE922B76B96004946D5 /* SLContryView.m */,
+				AE9B2DED22B76BB8004946D5 /* SLContryView.xib */,
 			);
-			path = View;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AE9B2DE422B76A68004946D5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AE9B2DE522B76A80004946D5 /* SLCountryModel.h */,
+				AE9B2DE622B76A80004946D5 /* SLCountryModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AE9B2DEF22B76E7B004946D5 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AE9B2DF022B76EA2004946D5 /* Contries */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		AE9B2DF022B76EA2004946D5 /* Contries */ = {
+			isa = PBXGroup;
+			children = (
+				AE9B2DF122B76EA2004946D5 /* ydl.gif */,
+				AE9B2DF222B76EA2004946D5 /* putaoya.gif */,
+				AE9B2DF322B76EA2004946D5 /* helan.gif */,
+				AE9B2DF422B76EA2004946D5 /* wlgui.gif */,
+				AE9B2DF522B76EA2004946D5 /* hanguo.gif */,
+				AE9B2DF622B76EA2004946D5 /* ruishi.gif */,
+				AE9B2DF722B76EA2004946D5 /* deguo.gif */,
+				AE9B2DF822B76EA2004946D5 /* agt.gif */,
+				AE9B2DF922B76EA2004946D5 /* faguo.gif */,
+				AE9B2DFA22B76EA2004946D5 /* xiby.gif */,
+				AE9B2DFB22B76EA2004946D5 /* baxi.gif */,
+				AE9B2DFC22B76EA2004946D5 /* ruidian.gif */,
+				AE9B2DFD22B76EA2004946D5 /* ying.gif */,
+				AE9B2DFE22B76EA2004946D5 /* zhongguo.jpg */,
+				AE9B2DFF22B76EA2004946D5 /* flags.plist */,
+			);
+			path = Contries;
 			sourceTree = "<group>";
 		};
 		F2898FA87E619954F20878C7 /* Frameworks */ = {
@@ -429,8 +511,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE73DDA522B38A9D009C4963 /* LaunchScreen.storyboard in Resources */,
+				AE9B2E0422B76EA2004946D5 /* hanguo.gif in Resources */,
+				AE9B2E0022B76EA2004946D5 /* ydl.gif in Resources */,
+				AE9B2E0722B76EA2004946D5 /* agt.gif in Resources */,
+				AE9B2E0122B76EA2004946D5 /* putaoya.gif in Resources */,
+				AE9B2E0E22B76EA2004946D5 /* flags.plist in Resources */,
 				AE73DDA222B38A9D009C4963 /* Assets.xcassets in Resources */,
+				AE9B2E0622B76EA2004946D5 /* deguo.gif in Resources */,
+				AE9B2E0A22B76EA2004946D5 /* baxi.gif in Resources */,
+				AE9B2E0D22B76EA2004946D5 /* zhongguo.jpg in Resources */,
+				AE9B2E0822B76EA2004946D5 /* faguo.gif in Resources */,
+				AE9B2E0C22B76EA2004946D5 /* ying.gif in Resources */,
+				AE9B2E0922B76EA2004946D5 /* xiby.gif in Resources */,
+				AE9B2DEE22B76BB8004946D5 /* SLContryView.xib in Resources */,
+				AE9B2E0B22B76EA2004946D5 /* ruidian.gif in Resources */,
+				AE9B2E0322B76EA2004946D5 /* wlgui.gif in Resources */,
 				AE73DDA022B38A9B009C4963 /* Main.storyboard in Resources */,
+				AE9B2E0522B76EA2004946D5 /* ruishi.gif in Resources */,
+				AE9B2E0222B76EA2004946D5 /* helan.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +647,7 @@
 				AE73DDCE22B38CFD009C4963 /* SLHomeTVC.m in Sources */,
 				AE73DDD422B39160009C4963 /* SLChianVC.m in Sources */,
 				AE73DDA822B38A9D009C4963 /* main.m in Sources */,
+				AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */,
 				AE24E7B922B490FD006A3273 /* SLSuperOrSuperClassVC.m in Sources */,
 				AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */,
 				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
@@ -557,6 +656,7 @@
 				AE24E7B622B48979006A3273 /* NSKVONotifying_SLPerson.m in Sources */,
 				AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */,
 				AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */,
+				AE9B2DEA22B76B96004946D5 /* SLContryView.m in Sources */,
 				AE24E7C722B49808006A3273 /* SLRACVC.m in Sources */,
 				AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */,
 				AE24E7BC22B49168006A3273 /* SLFather.m in Sources */,
