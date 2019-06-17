@@ -26,6 +26,7 @@
 		AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD622B391E6009C4963 /* SLObserverVC.m */; };
 		AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD922B391F5009C4963 /* SLFunctionVC.m */; };
 		AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */; };
+		AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */; };
 		C4DDB338AEB9B1FB329AB069 /* Pods_LearnObjCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D504F096E730BFCD6C08332 /* Pods_LearnObjCTests.framework */; };
 		DC15220F535D12E6CB402368 /* Pods_LearnObjCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2297D248B52361B04A510BFE /* Pods_LearnObjCUITests.framework */; };
 		DC24A6FE26ED13C61330BEFD /* Pods_LearnObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78B6385174A764E33C9F800 /* Pods_LearnObjC.framework */; };
@@ -92,6 +93,8 @@
 		AE73DDD922B391F5009C4963 /* SLFunctionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLFunctionVC.m; sourceTree = "<group>"; };
 		AE73DDDC22B39BD3009C4963 /* SLCalculatorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCalculatorManager.h; sourceTree = "<group>"; };
 		AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCalculatorManager.m; sourceTree = "<group>"; };
+		AE9B2DDE22B7450A004946D5 /* SLCustomRACView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCustomRACView.h; sourceTree = "<group>"; };
+		AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCustomRACView.m; sourceTree = "<group>"; };
 		B626BC54EA8B1BA9A0CA2E3F /* Pods-LearnObjC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnObjC.debug.xcconfig"; path = "Target Support Files/Pods-LearnObjC/Pods-LearnObjC.debug.xcconfig"; sourceTree = "<group>"; };
 		C6510E1929C7A83E01290364 /* Pods-LearnObjCUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnObjCUITests.debug.xcconfig"; path = "Target Support Files/Pods-LearnObjCUITests/Pods-LearnObjCUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CF3141B73994785DC184517B /* Pods-LearnObjC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnObjC.release.xcconfig"; path = "Target Support Files/Pods-LearnObjC/Pods-LearnObjC.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 		AE24E7C322B497CD006A3273 /* RAC */ = {
 			isa = PBXGroup;
 			children = (
+				AE9B2DDD22B744E2004946D5 /* View */,
 				AE24E7C422B497D5006A3273 /* Controllers */,
 			);
 			path = RAC;
@@ -295,6 +299,15 @@
 				AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		AE9B2DDD22B744E2004946D5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AE9B2DDE22B7450A004946D5 /* SLCustomRACView.h */,
+				AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F2898FA87E619954F20878C7 /* Frameworks */ = {
@@ -539,6 +552,7 @@
 				AE24E7B922B490FD006A3273 /* SLSuperOrSuperClassVC.m in Sources */,
 				AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */,
 				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
+				AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */,
 				AE24E7C222B4928A006A3273 /* SLSon.m in Sources */,
 				AE24E7B622B48979006A3273 /* NSKVONotifying_SLPerson.m in Sources */,
 				AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */,

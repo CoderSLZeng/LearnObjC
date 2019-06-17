@@ -8,8 +8,9 @@
 
 #import "SLRACVC.h"
 #import <ReactiveObjC/ReactiveObjC.h>
+#import "SLCustomRACView.h"
 
-@interface SLRACVC ()
+@interface SLRACVC () <SLCustomRACViewDelegate>
 
 @end
 
@@ -22,9 +23,51 @@
     
 //    [self useRACSignal];
 //    [self useRACSubject];
-    [self useRACReplaySubject];
+//    [self useRACReplaySubject];
+    
+    [self setupUI];
     
 }
+
+#pragma mark - Setup UI
+
+- (void)setupUI {
+    [self useDelegateAction];
+    [self userRACSubjectAction];
+}
+
+- (void)userRACSubjectAction {
+    SLCustomRACView *view = [[SLCustomRACView alloc] init];
+    view.backgroundColor = [UIColor greenColor];
+    view.frame = CGRectMake(200, 100, 100, 100);
+    [self.view addSubview:view];
+    
+    // 创建信号
+    RACSubject *subject = [RACSubject subject];
+    
+    // 订阅信号
+    [subject subscribeNext:^(id  _Nullable x) {
+        NSLog(@"通过RACSubject信号监听了绿色的View");
+    }];
+    
+    // 关联信号
+    view.subject = subject;
+}
+
+- (void)useDelegateAction {
+    SLCustomRACView *view = [[SLCustomRACView alloc] init];
+    view.backgroundColor = [UIColor redColor];
+    view.frame = CGRectMake(50, 100, 100, 100);
+    [self.view addSubview:view];
+    view.delegate = self;
+}
+
+#pragma mark - SLCustomRACViewDelegate
+- (void)customRACViewDidTouchesBegan:(SLCustomRACView *)view {
+    NSLog(@"通过代理监听点击了红色的View");
+}
+
+#pragma mark - Use RAC
 
 /**
   RACReplaySubject：无需注意订阅和发送信号的顺序
