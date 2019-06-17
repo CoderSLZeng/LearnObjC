@@ -38,7 +38,8 @@
     
     [self setupUI];
     
-    [self useRACTuple];
+//    [self useRACTuple]
+    [self useRACMulticastConnection];
     
 }
 
@@ -59,6 +60,49 @@
     [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
     [btn addTarget:self action:@selector(didContryButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+}
+
+
+- (void)useRACMulticastConnection {
+    
+    @weakify(self)
+    
+    // 1.创建RACSignal信号
+    // signal == RACDynamicSignal
+    RACSignal *signal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+       
+        @strongify(self)
+        
+        // 网络请求
+        NSLog(@"发送请求");
+        
+        [self loadData:^(id data) {
+            [subscriber sendNext:data];
+            [subscriber sendCompleted];
+        }];
+        
+        return nil;
+    }];
+    
+    // 2.RACSignal 转化 RACMulticastConnection
+    RACMulticastConnection *connection = [signal publish];
+    
+    // 3.开始订阅RACSubject，这里并不会执行RACSignal的block
+    // connection.signal == RACSubject，这里的connection.signal不是上面创建的RACSignal
+    [connection.signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"next = %@", x);
+    }];
+    
+    [connection.signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"next = %@", x);
+    }];
+    
+    // 4.进行连接，开始订阅RACSignal，才会执行的RACSignal的block
+    [connection connect];
+}
+
+- (void)loadData:(void(^)(id))success {
+    NSLog(@"加载数据");
 }
 
 /**
