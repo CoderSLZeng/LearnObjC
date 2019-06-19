@@ -1,5 +1,5 @@
 //
-//  SLRACVC.h
+//  SLRACExampleVC.h
 //  LearnObjC
 //
 //  Created by CoderSLZeng on 2019/6/15.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SLRACVC : UIViewController
+@interface SLRACExampleVC : UIViewController
 
 @end
 

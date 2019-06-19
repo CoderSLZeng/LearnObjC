@@ -11,6 +11,9 @@
 #pragma mark - Tools
 #import "SLRACManager.h"
 
+#pragma mark - Controllers
+#import "SLRACExampleVC.h"
+
 @interface SLUseRACTVC ()
 /** 数据源 */
 @property (strong, nonatomic) NSArray *rows;
@@ -49,8 +52,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSString *string = self.rows[indexPath.row];
-    [SLRACManager performSelector:NSSelectorFromString(string)];
+    NSString *text = self.rows[indexPath.row];
+    if ([text hasPrefix:@"use"]) {
+        [SLRACManager performSelector:NSSelectorFromString(text)];
+    } else if ([text isEqualToString:@"ReactiveObjC使用场景"]) {
+        SLRACExampleVC *vc = [[SLRACExampleVC alloc] init];
+        vc.navigationItem.title = text;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -68,7 +77,8 @@
              @"useRACCommandWithExecutionSignals",
              @"useRACCommandWithExecuting",
              @"useRACCommandWithExecutingSkip",
-             @"useRACCommandWithExecutionSignalsSwitchToLatest"
+             @"useRACCommandWithExecutionSignalsSwitchToLatest",
+             @"ReactiveObjC使用场景"
              ];
 }
 
