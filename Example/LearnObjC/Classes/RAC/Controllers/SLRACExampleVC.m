@@ -45,6 +45,7 @@
     [self useRACCommandActionSelectContryButton];
     [self useRACObserver];
     [self useSignalForControlEvents];
+    [self useRACNotification];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -133,8 +134,19 @@
 
 - (void)useSignalForControlEvents {
     [[self.selectContryBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        NSLog(@"%s --> %@", __func__, x);
+        NSLog(@"%s --> 事件监听 %@", __func__, x);
     }];
+}
+
+- (void)useRACNotification {
+    // 监听通知
+    // 管理观察者:不需要管理观察者,RAC内部管理
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"RACNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
+        NSLog(@"%s --> 监听到通知 %@", __func__, x);
+    }];
+    
+    // 发出通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RACNotification" object:nil];
 }
 
 #pragma mark - Getter
