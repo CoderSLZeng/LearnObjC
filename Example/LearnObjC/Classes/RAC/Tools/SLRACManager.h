@@ -22,6 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)useRACMulticastConnection;
 
++ (void)useRACCommandWithExecute;
+
++ (void)useRACCommandWithExecutionSignals;
+
++ (void)useRACCommandWithExecuting;
+
++ (void)useRACCommandWithExecutingSkip;
+
++ (void)useRACCommandWithExecutionSignalsSwitchToLatest;
+
 @end
 
 NS_ASSUME_NONNULL_END

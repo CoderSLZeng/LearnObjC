@@ -200,9 +200,138 @@
     [connection connect];
 }
 
+
+#pragma mark - RACCommand
+/**
+ RACCommand：处理事件总结
+ 
+ 注意
+ 1.RACCommand内部必须要返回signal
+ 2.executionSignals 信号中信号，一开始获取不到内部信号
+    2.1 switchToLatest：获取内部信号
+    2.2 execute：获取内部信号
+ 3.executing：判断是否正在执行
+    3.1 第一次不准确，需要skip,跳过
+    3.2 一定要记得sendCompleted,否则永远不会执行完成
+ 4.execute执行，执行command的block
+
+ */
++ (void)useRACCommandWithExecute {
+    // 创建RACCommand
+    RACCommand *cmd = [self createRACCommand];
+
+    // 执行：会调用执行RACCommand的block，并返回RACCommand的内部信号
+    RACSignal *signal = [cmd execute:@"【useRACCommandWithExecute】"];
+    
+    // RACCommand的内部信号开始订阅，就会调用执行RACSignal的block
+    [signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+}
+
++ (void)useRACCommandWithExecutionSignals {
+    // 创建RACCommand
+    RACCommand *cmd = [self createRACCommand];
+    
+    /**
+     订阅RACCommand信号
+     
+     @param executionSignals 信号中信号，信号发送信号
+     @param x 发送信号
+     */
+    [cmd.executionSignals subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+        
+        [x subscribeNext:^(id  _Nullable x) {
+            NSLog(@"%@", x);
+        }];
+    }];
+    
+    [cmd execute:@"【useRACCommandWithExecutionSignals】"];
+    
+}
+
++ (void)useRACCommandWithExecuting {
+    // 创建RACCommand
+    RACCommand *cmd = [self createRACCommand];
+    
+    [cmd.executing subscribeNext:^(NSNumber * _Nullable x) {
+        BOOL isExecuting = [x boolValue];
+        if (isExecuting) {
+            NSLog(@"正在执行");
+        } else {
+            // 必须调用 [subscriber sendCompleted]; 才会来到这里，但不会忽略首次
+            NSLog(@"执行完成");
+        }
+    }];
+    
+    [cmd execute:@"【useRACCommandWithExecuting】"];
+    
+}
+
++ (void)useRACCommandWithExecutingSkip {
+    // 创建RACCommand
+    RACCommand *cmd = [self createRACCommand];
+    
+    // 忽略首次信号：监听命令的执行情况，有没有完成
+    [[cmd.executing skip:1] subscribeNext:^(NSNumber * _Nullable x) {
+        BOOL isExecuting = [x boolValue];
+        if (isExecuting) {
+            NSLog(@"正在执行");
+        } else {
+            // 必须调用 [subscriber sendCompleted]; 才会来到这里
+            NSLog(@"执行完成");
+        }
+    }];
+    
+    [cmd execute:@"【useRACCommandWithExecutingSkip】"];
+    
+}
+
++ (void)useRACCommandWithExecutionSignalsSwitchToLatest {
+    // 创建RACCommand
+    RACCommand *cmd = [self createRACCommand];
+    
+    /**
+     订阅RACCommand信号
+     
+     @param executionSignals 信号中信号，信号发送信号
+     @param switchToLatest 获取最近发送的信号
+     @param x 接收信号发送的数据
+     */
+    [cmd.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@", x);
+    }];
+    
+    [cmd execute:@"【useRACCommandWithExecutionSignalsSwitchToLatest】"];
+    
+}
+
 #pragma mark - Private
 + (void)loadData:(void(^)(id))success {
     NSLog(@"加载数据");
+}
+
++ (RACCommand *)createRACCommand {
+    RACCommand *cmd = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        // RACCommand的block
+        NSLog(@"执行RACCommand的block, input = %@", input);
+        
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            
+            // 信号的block
+            NSLog(@"执行RACSignal的block，subscriber = %@", subscriber);
+            // 发送数据 => RACReplaySubject
+            [subscriber sendNext:@"发送数据 == Hello RACCommand"];
+            // 发送完成
+            [subscriber sendCompleted];
+            
+            return [RACDisposable disposableWithBlock:^{
+                NSLog(@"执行RACDisposable的block");
+            }];
+        }];
+    }];
+    return cmd;
 }
 
 

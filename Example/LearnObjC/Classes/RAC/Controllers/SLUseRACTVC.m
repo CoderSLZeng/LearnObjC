@@ -63,7 +63,12 @@
              @"useRACSubject",
              @"useRACReplaySubject",
              @"useRACTuple",
-             @"useRACMulticastConnection"
+             @"useRACMulticastConnection",
+             @"useRACCommandWithExecute",
+             @"useRACCommandWithExecutionSignals",
+             @"useRACCommandWithExecuting",
+             @"useRACCommandWithExecutingSkip",
+             @"useRACCommandWithExecutionSignalsSwitchToLatest"
              ];
 }
 
