@@ -29,6 +29,10 @@
 @property (strong, nonatomic) NSArray<SLCountryModel *> *contries;
 
 @property (assign, nonatomic) int age;
+/** 文本框 */
+@property (weak, nonatomic) UILabel *label;
+/** 文本输入框 */
+@property (weak, nonatomic) UITextField *textField;
 
 @end
 
@@ -46,6 +50,7 @@
     [self useRACObserver];
     [self useSignalForControlEvents];
     [self useRACNotification];
+    [self useRACSignalBind];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -57,13 +62,16 @@
     
     self.redView.frame = CGRectMake(50, 100, 100, 100);
     self.greenView.frame = CGRectMake(200, 100, 100, 100);
-    self.selectContryBtn.frame = CGRectMake(50, 250, 300, 30);
+    self.selectContryBtn.frame = CGRectMake(50, 220, 300, 30);
     CGFloat height = 150;
     self.pickerView.frame = CGRectMake(0, self.view.frame.size.height - height * 1.5, self.view.frame.size.width, height);
+    
+    self.label.frame = CGRectMake(50, 270, 300, 30);
+    self.textField.frame = CGRectMake(50, 320, 300, 30);
 }
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
+    NSLog(@"【%d】%s", __LINE__, __func__);
 }
 
 #pragma mark - Action
@@ -78,7 +86,7 @@
     
     // 订阅信号
     [subject subscribeNext:^(id  _Nullable x) {
-        NSLog(@"%s --> 通过RACSubject信号监听了绿色的View", __func__);
+        NSLog(@"【%d】%s --> 通过RACSubject信号监听了绿色的View", __LINE__, __func__);
     }];
     
     // 关联信号
@@ -91,7 +99,7 @@
     @weakify(self)
     self.selectContryBtn.rac_command = [[RACCommand alloc] initWithEnabled:enabledSignal signalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         @strongify(self)
-        NSLog(@"%s --> 点击了按钮%@", __func__, input);
+        NSLog(@"【%d】%s --> 点击了按钮%@", __LINE__, __func__, input);
         UIButton *btn = (UIButton *)input;
         btn.selected = !btn.isSelected;
         self.pickerView.hidden = !btn.isSelected;
@@ -109,7 +117,7 @@
     }];
     
     [self.selectContryBtn.rac_command.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
-        NSLog(@"%s --> %@", __func__, x);
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
     }];
 }
 
@@ -121,20 +129,20 @@
      @keypath(self, age) == @"age";
      */
     [[self rac_valuesForKeyPath:@keypath(self, age) observer:self] subscribeNext:^(id  _Nullable x) {
-        NSLog(@"%s --> 使用方式1 age = %@", __func__, x);
+        NSLog(@"【%d】%s --> 使用方式1 age = %@", __LINE__, __func__, x);
     }];
     
     /**
      KVO API 使用方式2 （推荐）
      */
     [RACObserve(self, age) subscribeNext:^(id  _Nullable x) {
-        NSLog(@"%s --> 使用方式2 age = %@", __func__, x);
+        NSLog(@"【%d】%s --> 使用方式2 age = %@", __LINE__, __func__, x);
     }];
 }
 
 - (void)useSignalForControlEvents {
     [[self.selectContryBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        NSLog(@"%s --> 事件监听 %@", __func__, x);
+        NSLog(@"【%d】%s --> 事件监听 %@", __LINE__, __func__, x);
     }];
 }
 
@@ -142,11 +150,34 @@
     // 监听通知
     // 管理观察者:不需要管理观察者,RAC内部管理
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"RACNotification" object:nil] subscribeNext:^(NSNotification * _Nullable x) {
-        NSLog(@"%s --> 监听到通知 %@", __func__, x);
+        NSLog(@"【%d】%s --> 监听到通知 %@", __LINE__, __func__, x);
     }];
     
     // 发出通知
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RACNotification" object:nil];
+}
+
+- (void)useRACSignalBind {
+    
+    // 监听方式1
+    [self.textField addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+    
+    // 监听方式2
+    [[self.textField rac_signalForControlEvents:UIControlEventEditingChanged] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+    }];
+    
+    // 监听方式3
+    [self.textField.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+    }];
+    
+    // 监听方式4（推荐）
+    RAC(self.label, text) = self.textField.rac_textSignal;
+}
+
+- (void)textChange {
+    NSLog(@"【%d】%s --> %@", __LINE__, __func__, self.textField.text);
 }
 
 #pragma mark - Getter
@@ -196,6 +227,28 @@
     
     return _pickerView;
 }
+
+- (UILabel *)label {
+    if (!_label) {
+        UILabel *label = [[UILabel alloc] init];
+        label.backgroundColor = [UIColor lightGrayColor];
+        [self.view addSubview:label];
+        _label = label;
+    }
+    return _label;
+}
+
+- (UITextField *)textField {
+    if (!_textField) {
+        UITextField *textField = [[UITextField alloc] init];
+        textField.backgroundColor = [UIColor lightGrayColor];
+        textField.placeholder = @"请输入...";
+        [self.view addSubview:textField];
+        _textField = textField;
+    }
+    return _textField;
+}
+
 
 
 - (NSArray<SLCountryModel *> *)contries {
@@ -257,7 +310,7 @@
 
 #pragma mark - SLCustomRACViewDelegate
 - (void)customRACViewDidTouchesBegan:(SLCustomRACView *)view {
-    NSLog(@"%s --> 通过代理监听点击了红色的View", __func__);
+    NSLog(@"【%d】%s --> 通过代理监听点击了红色的View", __LINE__, __func__);
 }
 
 
