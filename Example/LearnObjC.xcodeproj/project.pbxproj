@@ -225,10 +225,10 @@
 		AE24E7C422B497D5006A3273 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AE24E7C522B49808006A3273 /* SLRACExampleVC.h */,
-				AE24E7C622B49808006A3273 /* SLRACExampleVC.m */,
 				AE36AAE722B9CD96009215D6 /* SLUseRACTVC.h */,
 				AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */,
+				AE24E7C522B49808006A3273 /* SLRACExampleVC.h */,
+				AE24E7C622B49808006A3273 /* SLRACExampleVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

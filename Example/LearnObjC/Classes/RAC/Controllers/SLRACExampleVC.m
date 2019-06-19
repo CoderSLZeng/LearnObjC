@@ -27,6 +27,9 @@
 @property (weak, nonatomic) UIPickerView *pickerView;
 /** 国家数据源 */
 @property (strong, nonatomic) NSArray<SLCountryModel *> *contries;
+
+@property (assign, nonatomic) int age;
+
 @end
 
 @implementation SLRACExampleVC
@@ -39,7 +42,12 @@
 
     [self useDelegateActionRedView];
     [self useRACSubjectActionGreenView];
-    [self useRACCommandActionSelectContryButton];    
+    [self useRACCommandActionSelectContryButton];
+    [self useRACObserver];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.age++;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -100,6 +108,25 @@
     
     [self.selectContryBtn.rac_command.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
         NSLog(@"%@", x);
+    }];
+}
+
+- (void)useRACObserver {
+    /**
+     KVO API 使用方式1
+     [self rac_valuesForKeyPath:nil observer:nil];
+     [self rac_valuesAndChangesForKeyPath:nil options:nil observer:nil];
+     @keypath(self, age) == @"age";
+     */
+    [[self rac_valuesForKeyPath:@keypath(self, age) observer:self] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"使用方式1 age = %@", x);
+    }];
+    
+    /**
+     KVO API 使用方式2 （推荐）
+     */
+    [RACObserve(self, age) subscribeNext:^(id  _Nullable x) {
+        NSLog(@"使用方式2 age = %@", x);
     }];
 }
 
