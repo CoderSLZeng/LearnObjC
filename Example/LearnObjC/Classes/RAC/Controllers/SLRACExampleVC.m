@@ -44,6 +44,7 @@
     [self useRACSubjectActionGreenView];
     [self useRACCommandActionSelectContryButton];
     [self useRACObserver];
+    [self useSignalForControlEvents];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -76,7 +77,7 @@
     
     // 订阅信号
     [subject subscribeNext:^(id  _Nullable x) {
-        NSLog(@"通过RACSubject信号监听了绿色的View");
+        NSLog(@"%s --> 通过RACSubject信号监听了绿色的View", __func__);
     }];
     
     // 关联信号
@@ -89,7 +90,7 @@
     @weakify(self)
     self.selectContryBtn.rac_command = [[RACCommand alloc] initWithEnabled:enabledSignal signalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
         @strongify(self)
-        NSLog(@"点击了按钮%@", input);
+        NSLog(@"%s --> 点击了按钮%@", __func__, input);
         UIButton *btn = (UIButton *)input;
         btn.selected = !btn.isSelected;
         self.pickerView.hidden = !btn.isSelected;
@@ -107,7 +108,7 @@
     }];
     
     [self.selectContryBtn.rac_command.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
-        NSLog(@"%@", x);
+        NSLog(@"%s --> %@", __func__, x);
     }];
 }
 
@@ -119,14 +120,20 @@
      @keypath(self, age) == @"age";
      */
     [[self rac_valuesForKeyPath:@keypath(self, age) observer:self] subscribeNext:^(id  _Nullable x) {
-        NSLog(@"使用方式1 age = %@", x);
+        NSLog(@"%s --> 使用方式1 age = %@", __func__, x);
     }];
     
     /**
      KVO API 使用方式2 （推荐）
      */
     [RACObserve(self, age) subscribeNext:^(id  _Nullable x) {
-        NSLog(@"使用方式2 age = %@", x);
+        NSLog(@"%s --> 使用方式2 age = %@", __func__, x);
+    }];
+}
+
+- (void)useSignalForControlEvents {
+    [[self.selectContryBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"%s --> %@", __func__, x);
     }];
 }
 
@@ -238,7 +245,7 @@
 
 #pragma mark - SLCustomRACViewDelegate
 - (void)customRACViewDidTouchesBegan:(SLCustomRACView *)view {
-    NSLog(@"通过代理监听点击了红色的View");
+    NSLog(@"%s --> 通过代理监听点击了红色的View", __func__);
 }
 
 
