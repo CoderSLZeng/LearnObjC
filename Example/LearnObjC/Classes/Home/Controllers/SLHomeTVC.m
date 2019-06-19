@@ -71,7 +71,7 @@
              @"响应式编程思想-SLObserverVC",
              @"函数式编程思想-SLFunctionVC",
              @"super和superclass区别-SLSuperOrSuperClassVC",
-             @"ReactiveCocoa-SLRACVC"
+             @"ReactiveObjC的基本使用-SLUseRACTVC"
              ];
 }
 @end
