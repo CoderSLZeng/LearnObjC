@@ -51,6 +51,7 @@
     [self useSignalForControlEvents];
     [self useRACNotification];
     [self useRACSignalBind];
+    [self useRACLiftSelector];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -72,6 +73,11 @@
 
 - (void)dealloc {
     NSLog(@"【%d】%s", __LINE__, __func__);
+}
+
+#pragma mark - Setup UI
+- (void)updateUIWithHotData:(NSString *)hot newData:(NSString *)new {
+    NSLog(@"【%d】%s --> 更新UI %@ %@", __LINE__, __func__, hot, new);
 }
 
 #pragma mark - Action
@@ -178,6 +184,24 @@
 
 - (void)textChange {
     NSLog(@"【%d】%s --> %@", __LINE__, __func__, self.textField.text);
+}
+
+- (void)useRACLiftSelector {
+    // 创建请求最热数据信号
+    RACSignal *hotSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        // 请求最热信号
+        [subscriber sendNext:@"最热数据"];
+        return nil;
+    }];
+    
+    // 创建轻轻最新数据信号
+    RACSignal *newSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        // 请求最新信号
+        [subscriber sendNext:@"最新数据"];
+        return nil;
+    }];
+    
+    [self rac_liftSelector:@selector(updateUIWithHotData:newData:) withSignals:hotSignal, newSignal, nil];
 }
 
 #pragma mark - Getter
