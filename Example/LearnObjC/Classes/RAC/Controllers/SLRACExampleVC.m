@@ -38,6 +38,16 @@
 
 @implementation SLRACExampleVC
 
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    SLRACExampleVC *vc = [super allocWithZone:zone];
+    
+    [[vc rac_signalForSelector:@selector(viewDidLayoutSubviews)] subscribeNext:^(RACTuple * _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+        [vc setupSubviewsFrame];
+    }];
+    return vc;
+}
+
 #pragma mark - Life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,15 +62,25 @@
     [self useRACNotification];
     [self useRACSignalBind];
     [self useRACLiftSelector];
+    [self userRACSignalForSelector];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.age++;
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
+//- (void)viewDidLayoutSubviews {
+//    [super viewDidLayoutSubviews];
+//
+//    [self setupSubviewsFrame];
+//}
+
+- (void)dealloc {
+    NSLog(@"【%d】%s", __LINE__, __func__);
+}
+
+#pragma mark - Setup UI
+- (void)setupSubviewsFrame {
     self.redView.frame = CGRectMake(50, 100, 100, 100);
     self.greenView.frame = CGRectMake(200, 100, 100, 100);
     self.selectContryBtn.frame = CGRectMake(50, 220, 300, 30);
@@ -71,11 +91,6 @@
     self.textField.frame = CGRectMake(50, 320, 300, 30);
 }
 
-- (void)dealloc {
-    NSLog(@"【%d】%s", __LINE__, __func__);
-}
-
-#pragma mark - Setup UI
 - (void)updateUIWithHotData:(NSString *)hot newData:(NSString *)new {
     NSLog(@"【%d】%s --> 更新UI %@ %@", __LINE__, __func__, hot, new);
 }
@@ -97,6 +112,12 @@
     
     // 关联信号
     self.greenView.subject = subject;
+}
+
+- (void)userRACSignalForSelector {
+    [[self.greenView rac_signalForSelector:@selector(touchesBegan:withEvent:)] subscribeNext:^(RACTuple * _Nullable x) {
+       NSLog(@"【%d】%s --> 通过RACSubject信号监听了绿色的View", __LINE__, __func__);
+    }];
 }
 
 - (void)useRACCommandActionSelectContryButton {
