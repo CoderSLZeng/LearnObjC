@@ -10,12 +10,11 @@
 
 #pragma mark - Views
 #import "SLCustomRACView.h"
-#import "SLContryView.h"
 
-#pragma mark - Models
-#import "SLCountryModel.h"
+#pragma mark - ViewModels
+#import "SLPickerViewModel.h"
 
-@interface SLRACExampleVC () <SLCustomRACViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface SLRACExampleVC () <SLCustomRACViewDelegate>
 
 /** 红色视图 */
 @property (weak, nonatomic) SLCustomRACView *redView;
@@ -25,8 +24,9 @@
 @property (weak, nonatomic) UIButton *selectContryBtn;
 /** 国家选择器视图 */
 @property (weak, nonatomic) UIPickerView *pickerView;
-/** 国家数据源 */
-@property (strong, nonatomic) NSArray<SLCountryModel *> *contries;
+
+/** 国家选择器视图模型 */
+@property (strong, nonatomic) SLPickerViewModel *pickerViewModel;
 
 @property (assign, nonatomic) int age;
 /** 文本框 */
@@ -63,6 +63,8 @@
     [self useRACSignalBind];
     [self useRACLiftSelector];
     [self userRACSignalForSelector];
+    
+    [self.pickerViewModel bindViewModel:self.pickerView];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -116,7 +118,7 @@
 
 - (void)userRACSignalForSelector {
     [[self.greenView rac_signalForSelector:@selector(touchesBegan:withEvent:)] subscribeNext:^(RACTuple * _Nullable x) {
-       NSLog(@"【%d】%s --> 通过RACSubject信号监听了绿色的View", __LINE__, __func__);
+       NSLog(@"【%d】%s --> 通过rac_signalForSelector监听了绿色的View", __LINE__, __func__);
     }];
 }
 
@@ -263,8 +265,6 @@
 - (UIPickerView *)pickerView {
     if (!_pickerView) {
         UIPickerView *pickerView = [[UIPickerView alloc] init];
-        pickerView.dataSource = self;
-        pickerView.delegate = self;
         pickerView.hidden = YES;
         [self.view addSubview:pickerView];
         _pickerView = pickerView;
@@ -295,62 +295,11 @@
 }
 
 
-
-- (NSArray<SLCountryModel *> *)contries {
-    if (!_contries) {
-        NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"flags" ofType:@"plist"];
-        NSArray *datas = [NSArray arrayWithContentsOfFile:filePath];
-        
-        _contries = [[datas.rac_sequence map:^id _Nullable(id  _Nullable value) {
-            SLCountryModel *model = [[SLCountryModel alloc] init];
-            [model setValuesForKeysWithDictionary:value];
-            return model;
-        }] array];
-        
-    }
-    
-    return _contries;
+- (SLPickerViewModel *)pickerViewModel {
+    if (!_pickerViewModel) _pickerViewModel = [[SLPickerViewModel alloc] init];
+    return _pickerViewModel;
 }
 
-
-#pragma mark - UIPickerViewDataSource
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return self.contries.count;
-}
-
-#pragma mark - UIPickerViewDataDelegate
-- (NSString *)pickerView:(UIPickerView *)pickerView
-             titleForRow:(NSInteger)row
-            forComponent:(NSInteger)component {
-    SLCountryModel *countryModel = self.contries[row];
-    return countryModel.name;
-}
-
-- (UIView *)pickerView:(UIPickerView *)pickerView
-            viewForRow:(NSInteger)row
-          forComponent:(NSInteger)component
-           reusingView:(UIView *)view {
-    SLContryView *countryView = (SLContryView *)view;
-    
-    if (countryView == nil) {
-        countryView = [SLContryView countryView];
-    }
-    
-    SLCountryModel *countryModel = self.contries[row];
-    countryView.nameLabel.text = countryModel.name;
-    NSString *iconFilePath = [[NSBundle bundleForClass:[self class]] pathForResource:countryModel.icon ofType:nil];
-    countryView.iconImageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
-    
-    return countryView;
-}
-
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
-    return 120;
-}
 
 
 #pragma mark - SLCustomRACViewDelegate

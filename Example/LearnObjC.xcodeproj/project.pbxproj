@@ -28,6 +28,8 @@
 		AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD622B391E6009C4963 /* SLObserverVC.m */; };
 		AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDD922B391F5009C4963 /* SLFunctionVC.m */; };
 		AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */; };
+		AE83867A22BA28CB00077B5B /* SLPickerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE83867922BA28CB00077B5B /* SLPickerViewModel.m */; };
+		AE83867F22BA313F00077B5B /* SLCountryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE83867E22BA313F00077B5B /* SLCountryViewModel.m */; };
 		AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */; };
 		AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DE622B76A80004946D5 /* SLCountryModel.m */; };
 		AE9B2DEA22B76B96004946D5 /* SLContryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DE922B76B96004946D5 /* SLContryView.m */; };
@@ -117,6 +119,11 @@
 		AE73DDD922B391F5009C4963 /* SLFunctionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLFunctionVC.m; sourceTree = "<group>"; };
 		AE73DDDC22B39BD3009C4963 /* SLCalculatorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCalculatorManager.h; sourceTree = "<group>"; };
 		AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCalculatorManager.m; sourceTree = "<group>"; };
+		AE83867822BA28CB00077B5B /* SLPickerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLPickerViewModel.h; sourceTree = "<group>"; };
+		AE83867922BA28CB00077B5B /* SLPickerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLPickerViewModel.m; sourceTree = "<group>"; };
+		AE83867C22BA307000077B5B /* SLViewModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLViewModelProtocol.h; sourceTree = "<group>"; };
+		AE83867D22BA313F00077B5B /* SLCountryViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCountryViewModel.h; sourceTree = "<group>"; };
+		AE83867E22BA313F00077B5B /* SLCountryViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCountryViewModel.m; sourceTree = "<group>"; };
 		AE9B2DDE22B7450A004946D5 /* SLCustomRACView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCustomRACView.h; sourceTree = "<group>"; };
 		AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCustomRACView.m; sourceTree = "<group>"; };
 		AE9B2DE522B76A80004946D5 /* SLCountryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCountryModel.h; sourceTree = "<group>"; };
@@ -213,6 +220,8 @@
 		AE24E7C322B497CD006A3273 /* RAC */ = {
 			isa = PBXGroup;
 			children = (
+				AE83867B22BA305900077B5B /* Protocol */,
+				AE83867722BA281B00077B5B /* ViewModels */,
 				AE36AAEA22B9CE92009215D6 /* Tools */,
 				AE9B2DEF22B76E7B004946D5 /* Resources */,
 				AE9B2DE422B76A68004946D5 /* Models */,
@@ -357,6 +366,25 @@
 				AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		AE83867722BA281B00077B5B /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AE83867822BA28CB00077B5B /* SLPickerViewModel.h */,
+				AE83867922BA28CB00077B5B /* SLPickerViewModel.m */,
+				AE83867D22BA313F00077B5B /* SLCountryViewModel.h */,
+				AE83867E22BA313F00077B5B /* SLCountryViewModel.m */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AE83867B22BA305900077B5B /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				AE83867C22BA307000077B5B /* SLViewModelProtocol.h */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		AE9B2DDD22B744E2004946D5 /* Views */ = {
@@ -669,6 +697,7 @@
 				AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */,
 				AE24E7B922B490FD006A3273 /* SLSuperOrSuperClassVC.m in Sources */,
 				AE36AAE922B9CD96009215D6 /* SLUseRACTVC.m in Sources */,
+				AE83867A22BA28CB00077B5B /* SLPickerViewModel.m in Sources */,
 				AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */,
 				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
 				AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */,
@@ -678,6 +707,7 @@
 				AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */,
 				AE9B2DEA22B76B96004946D5 /* SLContryView.m in Sources */,
 				AE24E7C722B49808006A3273 /* SLRACExampleVC.m in Sources */,
+				AE83867F22BA313F00077B5B /* SLCountryViewModel.m in Sources */,
 				AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */,
 				AE24E7BC22B49168006A3273 /* SLFather.m in Sources */,
 				AE24E7B322B48829006A3273 /* NSObject+KVO.m in Sources */,
