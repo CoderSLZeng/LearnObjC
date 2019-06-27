@@ -84,6 +84,8 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     self.age++;
+    
+    [self use_rac_flattenMap_map];
 }
 
 //- (void)viewDidLayoutSubviews {
@@ -192,17 +194,20 @@
     // 监听方式2：事件
 //    [self use_rac_signalForControlEvents];
     
-    // 监听方式3: 订阅信号
+    // 监听方式3：订阅信号
 //    [self use_rac_textSignal];
     
     // 监听方式4：宏
 //    [self use_rac_marco];
     
-    // 监听方式5: bind
+    // 监听方式5：bind
 //    [self use_rac_textSignal_bind];;
     
-    // 监听方式6: map
-    [self use_rac_map];
+    // 监听方式6：map
+//    [self use_rac_map];
+    
+    // 监听方式7：use_rac_map
+    [self use_rac_flattenMap];
 }
 
 - (void)textChange {
@@ -317,11 +322,70 @@
  */
 - (void)use_rac_map {
     [[self.textField.rac_textSignal map:^id _Nullable(NSString * _Nullable value) {
+        // 拦截输入文字
         NSString *result = [NSString stringWithFormat:@"sl_%@",value];
         return result;
     }] subscribeNext:^(id  _Nullable x) {
         NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
     }];
+}
+
+#pragma mark flattenMap使用
+/**
+ flattenMap 信号中的信号 模式监听
+ */
+- (void)use_rac_flattenMap {
+    [[self.textField.rac_textSignal flattenMap:^ RACSignal * (NSString * value) {
+        NSString *result = [NSString stringWithFormat:@"sl_%@", value];
+        // 拦截输入文字
+        return [RACReturnSignal return:result];
+        
+    }] subscribeNext:^(id  _Nullable x) {
+        
+        NSLog(@"%@",x);
+        
+    }];
+}
+
+#pragma mark flattenMap和Map组合使用
+- (void)use_rac_flattenMap_map {
+    // 信号中信号:信号发送一个信号
+    RACSubject *signalOfSignals = [RACSubject subject];
+    RACSubject *signal = [RACSubject subject];
+    
+//    [signalOfSignals subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"信号中信号的值:%@",x);
+//        [x subscribeNext:^(id  _Nullable x) {
+//            NSLog(@"信号的值:%@",x);
+//        }];
+//    }];
+    
+    // flattenMap，map获取都是信号的值
+    [[signalOfSignals flattenMap:^RACSignal *(id value) {
+        
+//        __block NSString *result;
+//        [value subscribeNext:^(id  _Nullable x) {
+//            NSLog(@"%@",x);
+//            result = [NSString stringWithFormat:@"SL:%@",x];
+//        }];
+//
+//        NSLog(@"%@",result);
+        
+        return [value map:^id _Nullable(id  _Nullable value) {
+            return [NSString stringWithFormat:@"SL:%@",value];
+        }];
+        
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    
+//    [signal subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"%@",x);
+//    }];
+    
+    [signalOfSignals sendNext:signal];
+    [signal sendNext:@(self.age)];
+    
 }
 
 #pragma mark Getter
