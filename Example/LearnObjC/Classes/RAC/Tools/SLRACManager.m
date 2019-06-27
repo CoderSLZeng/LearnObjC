@@ -334,4 +334,77 @@
     return cmd;
 }
 
++ (void)use_rac_flattenMap_map {
+    // 信号中信号:信号发送一个信号
+    RACSubject *signalOfSignals = [RACSubject subject];
+    RACSubject *signal = [RACSubject subject];
+    
+//    [signalOfSignals subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"信号中信号的值:%@",x);
+//        [x subscribeNext:^(id  _Nullable x) {
+//            NSLog(@"信号的值:%@",x);
+//        }];
+//    }];
+    
+    // flattenMap，map获取都是信号的值
+    [[signalOfSignals flattenMap:^RACSignal *(id value) {
+        
+//        __block NSString *result;
+//        [value subscribeNext:^(id  _Nullable x) {
+//            NSLog(@"%@",x);
+//            result = [NSString stringWithFormat:@"SL:%@",x];
+//        }];
+//
+//        NSLog(@"%@",result);
+        
+        return [value map:^id _Nullable(id  _Nullable value) {
+            return [NSString stringWithFormat:@"SL:%@",value];
+        }];
+        
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    
+//    [signal subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"%@",x);
+//    }];
+    
+    [signalOfSignals sendNext:signal];
+    [signal sendNext:@1];
+}
+
++ (void)use_rac_concat {
+    // 拼接concat
+    // 需求:需要把两次请求的数据 添加到一个数组 有顺序的添加，先添加A，在添加B
+    // 创建信号
+    RACSubject *signalA = [RACSubject subject];
+    RACSubject *signalB = [RACReplaySubject subject];
+    
+    // 订阅信号
+    NSMutableArray *arrM = [NSMutableArray array];
+    
+    // 按顺序拼接,必须要第一个信号发送完成，第二个信号才能获取值
+    [[signalA concat:signalB] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+        [arrM addObject:x];
+    }];
+    
+    //    [signalA subscribeNext:^(id  _Nullable x) {
+    //        [arrM addObject:x];
+    //    }];
+    //
+    //
+    //    [signalB subscribeNext:^(id  _Nullable x) {
+    //        [arrM addObject:x];
+    //    }];
+    
+    // 发送信号
+    [signalB sendNext:@"B"];
+    [signalA sendNext:@"A"];
+    [signalA sendCompleted];
+    
+    // 打印数组的值
+    NSLog(@"%@",arrM);
+}
+
 @end

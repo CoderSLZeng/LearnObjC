@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)useRACCommandWithExecutionSignalsSwitchToLatest;
 
++ (void)use_rac_flattenMap_map;
+
++ (void)use_rac_concat;
 @end
 
 NS_ASSUME_NONNULL_END

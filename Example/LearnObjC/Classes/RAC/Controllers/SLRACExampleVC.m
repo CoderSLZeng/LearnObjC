@@ -385,7 +385,6 @@
     
     [signalOfSignals sendNext:signal];
     [signal sendNext:@(self.age)];
-    
 }
 
 #pragma mark Getter

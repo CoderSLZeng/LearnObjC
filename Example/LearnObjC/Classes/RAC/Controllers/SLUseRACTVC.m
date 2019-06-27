@@ -78,6 +78,8 @@
              @"useRACCommandWithExecuting",
              @"useRACCommandWithExecutingSkip",
              @"useRACCommandWithExecutionSignalsSwitchToLatest",
+             @"use_rac_flattenMap_map",
+             @"use_rac_concat",
              @"ReactiveObjC使用场景"
              ];
 }
