@@ -28,14 +28,14 @@
 @implementation SLPickerViewModel
 
 #pragma mark - Public
-
 - (void)bindViewModel:(UIView *)bindView {
     UIPickerView *pickerView = (UIPickerView *)bindView;
     pickerView.dataSource = self;
     pickerView.delegate = self;
 }
 
-#pragma mark - UIPickerViewDataSource
+#pragma mark - Private
+#pragma mark  UIPicker view data source
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
@@ -44,7 +44,7 @@
     return self.countryVMs.count;
 }
 
-#pragma mark - UIPickerViewDataDelegate
+#pragma mark  UIPicker view data delegate
 - (NSString *)pickerView:(UIPickerView *)pickerView
              titleForRow:(NSInteger)row
             forComponent:(NSInteger)component {
@@ -72,19 +72,19 @@
     return 120;
 }
 
-#pragma mark - Getter
+#pragma mark  Getter
 - (NSArray<SLCountryViewModel *> *)countryVMs {
     if (!_countryVMs) {
         NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"flags" ofType:@"plist"];
         NSArray *datas = [NSArray arrayWithContentsOfFile:filePath];
         
         _countryVMs = [[[[datas.rac_sequence map:^id _Nullable(id  _Nullable value) {
-            // 字典装模型
+            // 字典 --> 模型
             SLCountryModel *model = [[SLCountryModel alloc] init];
             [model setValuesForKeysWithDictionary:value];
             return model;
         }] array].rac_sequence map:^id _Nullable(id  _Nullable value) {
-            // 模型装视图模型
+            // 模型 --> 视图模型
             SLCountryViewModel *countryViewModel = [[SLCountryViewModel alloc] init];
             countryViewModel.model = value;
             return countryViewModel;

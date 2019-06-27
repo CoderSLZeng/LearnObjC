@@ -6,6 +6,16 @@
 //  Copyright © 2019 CoderSLZeng. All rights reserved.
 //
 
+/**
+ 1.代替代理
+ 2.监听某个方法有没有调用(rac_signalForSelector:判断有没有调用某个方法)
+ 3.代替KVO
+ 4.监听事件
+ 5.代替通知
+ 6.监听文本框文字改变
+ 7.处理一个界面,多个请求的问题
+ */
+
 #import "SLRACExampleVC.h"
 
 #pragma mark - Views
@@ -13,6 +23,9 @@
 
 #pragma mark - ViewModels
 #import "SLPickerViewModel.h"
+
+#pragma mark - Frameworks
+#import <ReactiveObjC/RACReturnSignal.h>
 
 @interface SLRACExampleVC () <SLCustomRACViewDelegate>
 
@@ -40,7 +53,7 @@
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
     SLRACExampleVC *vc = [super allocWithZone:zone];
-    
+    // 监听某个方法有没有调用(rac_signalForSelector:判断有没有调用某个方法)
     [[vc rac_signalForSelector:@selector(viewDidLayoutSubviews)] subscribeNext:^(RACTuple * _Nullable x) {
         NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
         [vc setupSubviewsFrame];
@@ -65,6 +78,8 @@
     [self userRACSignalForSelector];
     
     [self.pickerViewModel bindViewModel:self.pickerView];
+    
+    [self use_rac_textSignal_bind];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -102,8 +117,9 @@
     self.redView.delegate = self;
 }
 
+#pragma mark 1.代替代理
 - (void)useRACSubjectActionGreenView {
-    
+
     // 创建信号
     RACSubject *subject = [RACSubject subject];
     
@@ -116,40 +132,19 @@
     self.greenView.subject = subject;
 }
 
+
+#pragma mark 2.监听某个方法有没有调用
+/**
+ 监听某个方法有没有调用(rac_signalForSelector:判断有没有调用某个方法)
+ 底层其实是使用rumtime的交换方法实现
+ */
 - (void)userRACSignalForSelector {
     [[self.greenView rac_signalForSelector:@selector(touchesBegan:withEvent:)] subscribeNext:^(RACTuple * _Nullable x) {
        NSLog(@"【%d】%s --> 通过rac_signalForSelector监听了绿色的View", __LINE__, __func__);
     }];
 }
 
-- (void)useRACCommandActionSelectContryButton {
-    
-    RACSubject *enabledSignal = [RACSubject subject];
-    @weakify(self)
-    self.selectContryBtn.rac_command = [[RACCommand alloc] initWithEnabled:enabledSignal signalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        @strongify(self)
-        NSLog(@"【%d】%s --> 点击了按钮%@", __LINE__, __func__, input);
-        UIButton *btn = (UIButton *)input;
-        btn.selected = !btn.isSelected;
-        self.pickerView.hidden = !btn.isSelected;
-
-        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            [subscriber sendNext:input];
-            [subscriber sendCompleted];
-            return nil;
-        }];
-    }];
-    
-    [[self.selectContryBtn.rac_command.executing skip:1] subscribeNext:^(NSNumber * _Nullable x) {
-        BOOL isExecuting = [x boolValue];
-        [enabledSignal sendNext:@(!isExecuting)];
-    }];
-    
-    [self.selectContryBtn.rac_command.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
-        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
-    }];
-}
-
+#pragma mark 3.代替KVO
 - (void)useRACObserver {
     /**
      KVO API 使用方式1
@@ -169,12 +164,14 @@
     }];
 }
 
+#pragma mark 4.监听事件
 - (void)useSignalForControlEvents {
     [[self.selectContryBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         NSLog(@"【%d】%s --> 事件监听 %@", __LINE__, __func__, x);
     }];
 }
 
+#pragma mark 5.代替通知
 - (void)useRACNotification {
     // 监听通知
     // 管理观察者:不需要管理观察者,RAC内部管理
@@ -186,6 +183,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RACNotification" object:nil];
 }
 
+#pragma mark 6.监听文本框文字改变
 - (void)useRACSignalBind {
     
     // 监听方式1
@@ -203,12 +201,26 @@
     
     // 监听方式4（推荐）
     RAC(self.label, text) = self.textField.rac_textSignal;
+    
+    // 监听方式5: 拦截文字
+    [[self.textField.rac_textSignal bind:^RACSignalBindBlock _Nonnull{
+        return ^RACSignal *(id value, BOOL *stop){
+            // 信号一改变,就就会执行,并且把值传递过来
+            NSLog(@"【%d】%s --> %@", __LINE__, __func__, value);
+            NSString *result = [NSString stringWithFormat:@"%@%@",@"sl_", value];
+            
+            return [RACReturnSignal return:result];
+        };
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"【%d】%s --> 获取到处理完的数据 %@", __LINE__, __func__, x);
+    }];
 }
 
 - (void)textChange {
     NSLog(@"【%d】%s --> %@", __LINE__, __func__, self.textField.text);
 }
 
+#pragma mark 7.处理一个界面,多个请求的问题
 - (void)useRACLiftSelector {
     // 创建请求最热数据信号
     RACSignal *hotSignal = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
@@ -225,6 +237,51 @@
     }];
     
     [self rac_liftSelector:@selector(updateUIWithHotData:newData:) withSignals:hotSignal, newSignal, nil];
+}
+
+#pragma mark 8.rac_command
+- (void)useRACCommandActionSelectContryButton {
+    
+    RACSubject *enabledSignal = [RACSubject subject];
+    @weakify(self)
+    self.selectContryBtn.rac_command = [[RACCommand alloc] initWithEnabled:enabledSignal signalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        @strongify(self)
+        NSLog(@"【%d】%s --> 点击了按钮%@", __LINE__, __func__, input);
+        UIButton *btn = (UIButton *)input;
+        btn.selected = !btn.isSelected;
+        self.pickerView.hidden = !btn.isSelected;
+        
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:input];
+            [subscriber sendCompleted];
+            return nil;
+        }];
+    }];
+    
+    [[self.selectContryBtn.rac_command.executing skip:1] subscribeNext:^(NSNumber * _Nullable x) {
+        BOOL isExecuting = [x boolValue];
+        [enabledSignal sendNext:@(!isExecuting)];
+    }];
+    
+    [self.selectContryBtn.rac_command.executionSignals.switchToLatest subscribeNext:^(id  _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+    }];
+}
+
+#pragma mark - RAC高级用法
+- (void)use_rac_textSignal_bind {
+    [[self.textField.rac_textSignal bind:^RACSignalBindBlock _Nonnull{
+        NSLog(@"【%d】%s --> 执行bindBlock", __LINE__, __func__);
+        
+        return ^RACSignal *(id value, BOOL *stop) {
+            // 信号一改变，就会执行，并且把值传递过来
+            NSLog(@"【%d】%s --> 监听到的数据 self.textField.text = %@", __LINE__, __func__, value);
+            NSString *result = [NSString stringWithFormat:@"%@%@", @"sl_", value];
+            return [RACReturnSignal return:result];
+        };
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"【%d】%s --> 获取到处理完的数据 self.textField.text = %@", __LINE__, __func__, x);
+    }];
 }
 
 #pragma mark - Getter
@@ -294,27 +351,14 @@
     return _textField;
 }
 
-
 - (SLPickerViewModel *)pickerViewModel {
     if (!_pickerViewModel) _pickerViewModel = [[SLPickerViewModel alloc] init];
     return _pickerViewModel;
 }
 
-
-
 #pragma mark - SLCustomRACViewDelegate
 - (void)customRACViewDidTouchesBegan:(SLCustomRACView *)view {
     NSLog(@"【%d】%s --> 通过代理监听点击了红色的View", __LINE__, __func__);
 }
-
-
-
-
-
-
-
-
-
-
 
 @end

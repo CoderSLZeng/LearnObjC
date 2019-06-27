@@ -117,7 +117,7 @@
     
 }
 
-/**
+/** 
  RACReplaySubject：无需注意订阅和发送信号的顺序
  */
 + (void)useRACReplaySubject {
