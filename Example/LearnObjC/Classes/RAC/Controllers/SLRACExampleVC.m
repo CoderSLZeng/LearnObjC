@@ -73,13 +73,13 @@
     [self useRACObserver];
     [self useSignalForControlEvents];
     [self useRACNotification];
-    [self useRACSignalBind];
+    [self actionTextFieldTextChange];
     [self useRACLiftSelector];
     [self userRACSignalForSelector];
     
     [self.pickerViewModel bindViewModel:self.pickerView];
     
-    [self use_rac_textSignal_bind];
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -184,36 +184,25 @@
 }
 
 #pragma mark 6.监听文本框文字改变
-- (void)useRACSignalBind {
+- (void)actionTextFieldTextChange {
     
-    // 监听方式1
-    [self.textField addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+    // 监听方式1：Target
+//    [self addTargetAction];
     
-    // 监听方式2
-    [[self.textField rac_signalForControlEvents:UIControlEventEditingChanged] subscribeNext:^(__kindof UIControl * _Nullable x) {
-        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
-    }];
+    // 监听方式2：事件
+//    [self use_rac_signalForControlEvents];
     
-    // 监听方式3
-    [self.textField.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
-        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
-    }];
+    // 监听方式3: 订阅信号
+//    [self use_rac_textSignal];
     
-    // 监听方式4（推荐）
-    RAC(self.label, text) = self.textField.rac_textSignal;
+    // 监听方式4：宏
+//    [self use_rac_marco];
     
-    // 监听方式5: 拦截文字
-    [[self.textField.rac_textSignal bind:^RACSignalBindBlock _Nonnull{
-        return ^RACSignal *(id value, BOOL *stop){
-            // 信号一改变,就就会执行,并且把值传递过来
-            NSLog(@"【%d】%s --> %@", __LINE__, __func__, value);
-            NSString *result = [NSString stringWithFormat:@"%@%@",@"sl_", value];
-            
-            return [RACReturnSignal return:result];
-        };
-    }] subscribeNext:^(id  _Nullable x) {
-        NSLog(@"【%d】%s --> 获取到处理完的数据 %@", __LINE__, __func__, x);
-    }];
+    // 监听方式5: bind
+//    [self use_rac_textSignal_bind];;
+    
+    // 监听方式6: map
+    [self use_rac_map];
 }
 
 - (void)textChange {
@@ -268,7 +257,45 @@
     }];
 }
 
-#pragma mark - RAC高级用法
+#pragma mark - 私有方法
+#pragma mark 监听文本输入框文本改变
+/**
+ Target模式监听
+ */
+- (void)addTargetAction {
+    [self.textField addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+}
+
+/**
+ rac_signalForControlEvents模式监听
+ */
+- (void)use_rac_signalForControlEvents {
+    [[self.textField rac_signalForControlEvents:UIControlEventEditingChanged] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+    }];
+}
+
+/**
+ rac_textSignal模式监听
+ */
+- (void)use_rac_textSignal {
+    [self.textField.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+    }];
+}
+
+/**
+ RAC宏 模式监听
+ */
+- (void)use_rac_marco {
+    RAC(self.label, text) = self.textField.rac_textSignal;
+}
+
+#pragma mark RAC高级用法
+#pragma mark bind使用
+/**
+ bind 模式监听
+ */
 - (void)use_rac_textSignal_bind {
     [[self.textField.rac_textSignal bind:^RACSignalBindBlock _Nonnull{
         NSLog(@"【%d】%s --> 执行bindBlock", __LINE__, __func__);
@@ -284,7 +311,20 @@
     }];
 }
 
-#pragma mark - Getter
+#pragma mark map使用
+/**
+ map 模式监听
+ */
+- (void)use_rac_map {
+    [[self.textField.rac_textSignal map:^id _Nullable(NSString * _Nullable value) {
+        NSString *result = [NSString stringWithFormat:@"sl_%@",value];
+        return result;
+    }] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"【%d】%s --> %@", __LINE__, __func__, x);
+    }];
+}
+
+#pragma mark Getter
 - (SLCustomRACView *)redView {
     if (!_redView) {
         SLCustomRACView *redView = [[SLCustomRACView alloc] init];
