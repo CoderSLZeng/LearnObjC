@@ -683,6 +683,18 @@
     }];
 }
 
+/**
+ ignore：忽略完某些值的信号
+ */
++ (void)use_rac_ignore {
+    // 当前示例只是用来展示ignore的用法，并未实例这个对象
+    UITextField *textTF = [[UITextField alloc] init];
+    // 内部调用filter过滤，忽略掉ignore的值
+    [[textTF.rac_textSignal ignore:@"1"] subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+}
+
 #pragma mark - Private
 //
 /**

@@ -90,6 +90,7 @@
              @"use_rac_filter",
              @"use_rac_interval",
              @"use_rac_delay",
+             @"use_rac_ignore",
              @"ReactiveObjC使用场景"
              ];
 }
