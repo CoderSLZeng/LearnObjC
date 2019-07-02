@@ -590,13 +590,15 @@
 }
 
 /**
- combineLatest：任何一个信号,只要改变就能订阅到
- (combineLatest, reduce)
- reduce：把多个信号的值,聚合为一个值
- reduce参数：把多个信号的值,聚合为一个值
+ combineLatest：合并
+    任何一个信号,只要改变就能订阅到
+    (combineLatest, reduce)
+ reduce：聚合
+    把多个信号的值,聚合为一个值
+    参数：把多个信号的值,聚合为一个值
  */
 + (void)use_rac_combineLatest_reduce {
-    // 当前示例只是用来展示(combineLatest, reduce)的用法，并未实例这个3个对象
+    // 当前示例只是用来展示(combineLatest, reduce)的用法，并未实例这3个对象
     UITextField *accountTF = [[UITextField alloc] init];
     UITextField *pwdTF = [[UITextField alloc] init];
     UIButton *loginBtn = [[UIButton alloc] init];
@@ -632,8 +634,24 @@
     RAC(loginBtn, enabled) = [RACSignal combineLatest:@[accountTF.rac_textSignal, pwdTF.rac_textSignal] reduce:^id(NSString *account,NSString *pwd){
         return @(account.length > 0 && pwd.length > 0);
     }];
+}
+
+/**
+ 过滤：能少用if
+ */
++ (void)use_rac_filter {
+    // 当前示例只是用来展示filter的用法，并未实例这个对象
+    UITextField *pwdTF = [[UITextField alloc] init];
     
-    
+    // 密码长度小于6,不处理
+    // YES:才会允许通过,发送数据
+    // No:根本就不会发送
+    [[pwdTF.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
+        // 必须要满足这个条件,才可以发送数据出去
+        return value.length > 6;
+    }] subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"%@",x);
+    }];
 }
 
 #pragma mark - Private
