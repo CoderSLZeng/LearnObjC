@@ -571,6 +571,9 @@
     [signalA sendNext:@"A"];
 }
 
+/**
+ 压缩信号数据 变成 元组，同时发送数据，才能订阅到
+ */
 + (void)use_rac_zipWith {
     RACSubject *signalA = [RACSubject subject];
     RACSubject *signalB = [RACSubject subject];
@@ -584,6 +587,53 @@
     
     [signalA sendNext:@"A"];
     [signalB sendNext:@"B"];
+}
+
+/**
+ combineLatest：任何一个信号,只要改变就能订阅到
+ (combineLatest, reduce)
+ reduce：把多个信号的值,聚合为一个值
+ reduce参数：把多个信号的值,聚合为一个值
+ */
++ (void)use_rac_combineLatest_reduce {
+    // 当前示例只是用来展示(combineLatest, reduce)的用法，并未实例这个3个对象
+    UITextField *accountTF = [[UITextField alloc] init];
+    UITextField *pwdTF = [[UITextField alloc] init];
+    UIButton *loginBtn = [[UIButton alloc] init];
+    // 监听账号文本框
+    // 传统方式
+    [accountTF.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        if (x.length > 0) {
+            
+        }
+    }];
+    
+    // 监听密码文本框
+    [pwdTF.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+        if (x.length > 0) {
+            
+        }
+    }];
+    
+    
+    // 使用combineLatest 和 reduce 组合监听
+    [[RACSignal combineLatest:@[accountTF.rac_textSignal, pwdTF.rac_textSignal] reduce:^id(NSString *account, NSString *pwd){
+        
+        NSLog(@"%@ %@",account, pwd);
+        
+        return @(account.length > 0 && pwd.length > 0);
+        
+    }] subscribeNext:^(id  _Nullable x) {
+        loginBtn.enabled = [x boolValue];
+        NSLog(@"聚合的结果 %@",x);
+    }];
+    
+    // RAC:提醒，响应式编程
+    RAC(loginBtn, enabled) = [RACSignal combineLatest:@[accountTF.rac_textSignal, pwdTF.rac_textSignal] reduce:^id(NSString *account,NSString *pwd){
+        return @(account.length > 0 && pwd.length > 0);
+    }];
+    
+    
 }
 
 #pragma mark - Private

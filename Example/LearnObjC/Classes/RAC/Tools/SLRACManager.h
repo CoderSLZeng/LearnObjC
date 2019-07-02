@@ -43,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)use_rac_then;
 
 + (void)use_rac_then2;
+
++ (void)use_rac_merge;
+
++ (void)use_rac_zipWith;
+
++ (void)use_rac_combineLatest_reduce;
+
 @end
 
 NS_ASSUME_NONNULL_END
