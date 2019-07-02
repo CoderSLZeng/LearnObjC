@@ -80,6 +80,11 @@
              @"useRACCommandWithExecutionSignalsSwitchToLatest",
              @"use_rac_flattenMap_map",
              @"use_rac_concat",
+             @"use_rac_concat2",
+             @"use_rac_concat3",
+             @"use_rac_then",
+             @"use_rac_then2",
+             @"use_rac_merge",
              @"ReactiveObjC使用场景"
              ];
 }

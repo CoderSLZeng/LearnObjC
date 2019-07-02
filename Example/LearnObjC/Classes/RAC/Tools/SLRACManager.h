@@ -35,6 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)use_rac_flattenMap_map;
 
 + (void)use_rac_concat;
+
++ (void)use_rac_concat2;
+
++ (void)use_rac_concat3;
+
++ (void)use_rac_then;
+
++ (void)use_rac_then2;
 @end
 
 NS_ASSUME_NONNULL_END

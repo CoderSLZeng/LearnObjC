@@ -358,7 +358,7 @@
 //        NSLog(@"%@",result);
         
         return [value map:^id _Nullable(id  _Nullable value) {
-            return [NSString stringWithFormat:@"SL:%@",value];
+            return [NSString stringWithFormat:@"SL:%@", value];
         }];
         
     }] subscribeNext:^(id  _Nullable x) {
@@ -389,14 +389,14 @@
         [arrM addObject:x];
     }];
     
-    //    [signalA subscribeNext:^(id  _Nullable x) {
-    //        [arrM addObject:x];
-    //    }];
-    //
-    //
-    //    [signalB subscribeNext:^(id  _Nullable x) {
-    //        [arrM addObject:x];
-    //    }];
+//    [signalA subscribeNext:^(id  _Nullable x) {
+//        [arrM addObject:x];
+//    }];
+//
+//
+//    [signalB subscribeNext:^(id  _Nullable x) {
+//        [arrM addObject:x];
+//    }];
     
     // 发送信号
     [signalB sendNext:@"B"];
@@ -405,6 +405,210 @@
     
     // 打印数组的值
     NSLog(@"%@",arrM);
+}
+
++ (void)use_rac_concat2
+{
+    RACSignal *signalA = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        
+        NSLog(@"执行信号A");
+        [subscriber sendNext:@1];
+        [subscriber sendCompleted];
+        
+        return nil;
+    }];
+    
+    RACSignal *signalB = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        NSLog(@"执行信号B");
+        [subscriber sendNext:@2];
+        
+        return nil;
+    }];
+    
+    // 尽量不要订阅多次
+    [[signalA concat:signalB] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+}
+
++ (void)use_rac_concat3 {
+    [[[self loadDetailData] concat:[self loadCategoryData]] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+}
+
+/**
+ then：
+ 1.拼接，忽略掉上一个信号的值
+ 2.解决block嵌套问题
+ */
++ (void)use_rac_then {
+    RACSignal *signalA = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        
+        NSLog(@"执行信号A");
+        [subscriber sendNext:@1];
+        [subscriber sendCompleted];
+        
+        return nil;
+    }];
+    
+//    RACSignal *signalB = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+//        NSLog(@"执行信号B");
+//        [subscriber sendNext:@2];
+//
+//        return nil;
+//    }];
+    
+    [[signalA then:^RACSignal * _Nonnull{
+        
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            NSLog(@"执行信号B");
+            [subscriber sendNext:@2];
+            return nil;
+        }];
+    }] subscribeNext:^(id  _Nullable x) {
+        
+        NSLog(@"%@",x);
+        
+    }];
+}
+
+/**
+ 请求界面数据:先请求分类,在请求详情
+ */
++ (void)use_rac_then2 {
+    
+    // then:解决block嵌套问题
+    // 请求界面数据:先请求分类,在请求详情
+    
+//    // 请求分类
+//    [self loadCategoryData:^(id data) {
+//
+//        // 请求详情
+//        [self loadDetailData:^(id data) {
+//
+//            [self loadDetailData:^(id data) {
+//                [self loadDetailData:^(id data) {
+//
+//                    [self loadDetailData:^(id data) {
+//
+//
+//                    }];
+//                }];
+//
+//            }];
+//        }];
+//
+//    }];
+
+
+// RAC:
+//    [[[[[self loadCategoryData] then:^RACSignal * _Nonnull{
+//
+//        return [self loadDetailData];
+//
+//    }] then:^RACSignal * _Nonnull{
+//
+//        return [self loadDetailData];
+//
+//    }] then:^RACSignal * _Nonnull{
+//
+//        return [self loadDetailData];
+//
+//    }] then:^RACSignal * _Nonnull{
+//
+//        return [self loadDetailData];
+//
+//    }];
+
+    // RAC:then
+
+// 请求的时候 一定要用RACReplaySubject
+//    RACSubject *signalA = [RACReplaySubject subject];
+//    RACSubject *signalB = [RACReplaySubject subject];
+//
+//    // 发送
+//    [signalA sendNext:@"分类"];
+//    [signalA sendCompleted];
+//
+//    [signalB sendNext:@"详情"];
+//
+//    [[signalA then:^RACSignal * _Nonnull{
+//        return signalB;
+//    }] subscribeNext:^(id  _Nullable x) {
+//        NSLog(@"%@", x);
+//    }];
+    
+    [[[self loadCategoryData] then:^RACSignal * _Nonnull{
+
+        return [self loadDetailData];
+
+    }] subscribeNext:^(id  _Nullable x) {
+
+        NSLog(@"%@", x);
+
+    }];
+}
+
++ (void)use_rac_merge {
+    // 只要想无序的整合信号数据
+    RACSubject *signalA = [RACSubject subject];
+    RACSubject *signalB = [RACSubject subject];
+    
+    [[signalA merge:signalB] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+    
+    // 发送
+    [signalB sendNext:@"B"];
+    [signalA sendNext:@"A"];
+}
+
+#pragma mark - Private
+//
+/**
+ 请求分类数据
+
+ @return 分类数据信号
+ */
++ (RACSignal *)loadCategoryData {
+    RACSubject *signal = [RACReplaySubject subject];
+    
+    // 发送请求
+    [self loadCategoryData:^(id data) {
+        [signal sendNext:data];
+        [signal sendCompleted];
+    }];
+    
+    return signal;
+    
+}
+
+/**
+ 请求详情数据
+
+ @return 详情数据信号
+ */
++ (RACSignal *)loadDetailData {
+    RACSubject *signal = [RACReplaySubject subject];
+    
+    // 发送请求
+    [self loadDetailData:^(id data) {
+        [signal sendNext:data];
+        [signal sendCompleted];
+    }];
+    
+    return signal;
+}
+
+// 请求分类
++ (void)loadCategoryData:(void(^)(id data))success {
+    success(@"分类");
+}
+
+// 请求详情
++ (void)loadDetailData:(void(^)(id data))success {
+    success(@"详情数据");
 }
 
 @end
