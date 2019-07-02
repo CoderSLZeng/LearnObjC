@@ -654,6 +654,22 @@
     }];
 }
 
+/**
+ interval:隔多少秒发送消息
+ */
++ (void)use_rac_interval {
+    // 定时器
+    // [NSTimer scheduledTimerWithTimeInterval:<#(NSTimeInterval)#> target:<#(nonnull id)#> selector:<#(nonnull SEL)#> userInfo:<#(nullable id)#> repeats:<#(BOOL)#>]
+    
+    // interval：隔多少秒发送消息
+    // RACScheduler：多线程,管理现场
+        [[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSDate * _Nullable x) {
+    
+            NSLog(@"执行了定时器");
+    
+        }];
+}
+
 #pragma mark - Private
 //
 /**

@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_filter;
 
++ (void)use_rac_interval;
+
 @end
 
 NS_ASSUME_NONNULL_END
