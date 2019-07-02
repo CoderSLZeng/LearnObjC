@@ -89,6 +89,7 @@
              @"use_rac_combineLatest_reduce",
              @"use_rac_filter",
              @"use_rac_interval",
+             @"use_rac_delay",
              @"ReactiveObjC使用场景"
              ];
 }

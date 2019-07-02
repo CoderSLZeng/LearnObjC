@@ -54,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_interval;
 
++ (void)use_rac_delay;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -670,6 +670,19 @@
         }];
 }
 
+/**
+ delay：延迟发送数据
+ */
++ (void)use_rac_delay {
+    [[[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        NSLog(@"执行signalBlock");
+        [subscriber sendNext:@"延迟2秒后再发送数据"];
+        return nil;
+    }] delay:2] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+}
+
 #pragma mark - Private
 //
 /**
