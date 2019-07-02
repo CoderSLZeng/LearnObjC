@@ -373,6 +373,10 @@
     [signal sendNext:@1];
 }
 
+
+/**
+ 必须要第一个信号发送完成，第二个信号才能订阅
+ */
 + (void)use_rac_concat {
     // 拼接concat
     // 需求:需要把两次请求的数据 添加到一个数组 有顺序的添加，先添加A，在添加B
@@ -550,6 +554,9 @@
     }];
 }
 
+/**
+ 合并,只要任何一个信号发送数据,就能订阅
+ */
 + (void)use_rac_merge {
     // 只要想无序的整合信号数据
     RACSubject *signalA = [RACSubject subject];
@@ -562,6 +569,21 @@
     // 发送
     [signalB sendNext:@"B"];
     [signalA sendNext:@"A"];
+}
+
++ (void)use_rac_zipWith {
+    RACSubject *signalA = [RACSubject subject];
+    RACSubject *signalB = [RACSubject subject];
+    
+    [[signalA zipWith:signalB] subscribeNext:^(id  _Nullable x) {
+        
+        RACTupleUnpack(NSString *a, NSString *b) = x;
+        NSLog(@"%@ %@",a, b);
+        
+    }];
+    
+    [signalA sendNext:@"A"];
+    [signalB sendNext:@"B"];
 }
 
 #pragma mark - Private
