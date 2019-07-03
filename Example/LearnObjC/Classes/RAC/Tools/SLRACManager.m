@@ -14,7 +14,6 @@
 
 @implementation SLRACManager
 
-
 #pragma mark - Public
 /**
  RACSignal：信号
@@ -1154,6 +1153,20 @@
         
         NSLog(@"第二个订阅者%@",x);
         
+    }];
+}
+
+/**
+ throttle节流：当某个信号发送比较频繁时，可以使用节流，在某一段时间不发送信号内容，过了一段时间获取信号的最新内容发出。
+ */
++ (void)use_rac_throttle {
+    RACSubject *signal = [RACSubject subject];
+//    _signal = signal;
+    
+    // 节流，在一定时间（1秒）内，不接收任何信号内容，过了这个时间（1秒）获取最后发送的信号内容发出。
+    [[signal throttle:1] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
     }];
 }
 
