@@ -78,6 +78,7 @@
              @"useRACCommandWithExecuting",
              @"useRACCommandWithExecutingSkip",
              @"useRACCommandWithExecutionSignalsSwitchToLatest",
+             @"use_rac_bind",
              @"use_rac_flattenMap",
              @"use_rac_map",
              @"use_rac_flattenMap_map",
