@@ -870,6 +870,25 @@
     }];
 }
 
+/**
+ take：从开始一共取N次的信号
+ */
++ (void)use_rac_take {
+    // 1、创建信号
+    RACSubject *signal = [RACSubject subject];
+    
+    // 2、处理信号，订阅信号
+    [[signal take:1] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+    
+    // 3.发送信号
+    [signal sendNext:@1];
+    
+    [signal sendNext:@2];
+}
+
 #pragma mark - Private
 //
 /**

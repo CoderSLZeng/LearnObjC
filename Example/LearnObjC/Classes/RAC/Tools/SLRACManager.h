@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_distinctUntilChanged;
 
++ (void)use_rac_take;
+
 @end
 
 NS_ASSUME_NONNULL_END
