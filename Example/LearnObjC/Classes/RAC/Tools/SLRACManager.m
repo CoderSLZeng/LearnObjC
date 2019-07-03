@@ -932,6 +932,23 @@
 
 }
 
+/**
+ switchToLatest：用于signalOfSignals（信号的信号），有时候信号也会发出信号，会在signalOfSignals中，获取signalOfSignals发送的最新信号。
+ */
++ (void)use_rac_switchToLatest {
+    RACSubject *signalOfSignals = [RACSubject subject];
+    RACSubject *signal = [RACSubject subject];
+    
+    // 获取信号中信号最近发出信号，订阅最近发出的信号。
+    // 注意switchToLatest：只能用于信号中的信号
+    [signalOfSignals.switchToLatest subscribeNext:^(id x) {
+        NSLog(@"%@",x);
+    }];
+    
+    [signalOfSignals sendNext:signal];
+    [signal sendNext:@1];
+}
+
 #pragma mark - Private
 //
 /**
