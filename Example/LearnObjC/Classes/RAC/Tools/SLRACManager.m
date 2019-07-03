@@ -1104,8 +1104,35 @@
     }];
 }
 
+#pragma mark - ReactiveCocoa操作方法之重复
+/**
+ retry重试：只要失败，就会重新执行创建信号中的block，直到成功。
+ */
++ (void)use_rac_retry {
+    __block int i = 0;
+    [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        if (i == 10) {
+            [subscriber sendNext:@1];
+        } else {
+            NSLog(@"接收到错误");
+            [subscriber sendError:nil];
+        }
+        i++;
+        
+        return nil;
+        
+    }] retry] subscribeNext:^(id x) {
+        
+        NSLog(@"%@", x);
+        
+    } error:^(NSError *error) {
+        
+        NSLog(@"%@", error);
+    }];
+}
+
 #pragma mark - Private
-//
 /**
  请求分类数据
 

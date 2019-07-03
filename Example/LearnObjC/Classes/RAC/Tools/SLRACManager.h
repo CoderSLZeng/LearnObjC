@@ -32,13 +32,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)useRACCommandWithExecutionSignalsSwitchToLatest;
 
+
 + (void)use_rac_bind;
+
 
 + (void)use_rac_flattenMap;
 
 + (void)use_rac_map;
 
 + (void)use_rac_flattenMap_map;
+
 
 + (void)use_rac_concat;
 
@@ -60,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_combineLatest_reduce;
 
+
 + (void)use_rac_filter;
 
 + (void)use_rac_ignore;
@@ -78,13 +82,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_doNext_doCompleted;
 
+
 + (void)use_rac_deliverOn_subscribeOn;
+
 
 + (void)use_rac_timeout;
 
 + (void)use_rac_interval;
 
 + (void)use_rac_delay;
+
+
++ (void)use_rac_retry;
 @end
 
 NS_ASSUME_NONNULL_END
