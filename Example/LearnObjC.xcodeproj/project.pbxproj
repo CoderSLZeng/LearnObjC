@@ -30,6 +30,10 @@
 		AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DDDD22B39BD3009C4963 /* SLCalculatorManager.m */; };
 		AE83867A22BA28CB00077B5B /* SLPickerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE83867922BA28CB00077B5B /* SLPickerViewModel.m */; };
 		AE83867F22BA313F00077B5B /* SLCountryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE83867E22BA313F00077B5B /* SLCountryViewModel.m */; };
+		AE8DA43F22CC883300A08D50 /* SLLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8DA43D22CC883300A08D50 /* SLLoginVC.m */; };
+		AE8DA44022CC883300A08D50 /* SLLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE8DA43E22CC883300A08D50 /* SLLoginVC.xib */; };
+		AE8DA44322CC89E600A08D50 /* SLLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8DA44222CC89E600A08D50 /* SLLoginViewModel.m */; };
+		AE8DA44622CC8ABB00A08D50 /* SLAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE8DA44522CC8ABB00A08D50 /* SLAccountModel.m */; };
 		AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */; };
 		AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DE622B76A80004946D5 /* SLCountryModel.m */; };
 		AE9B2DEA22B76B96004946D5 /* SLContryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9B2DE922B76B96004946D5 /* SLContryView.m */; };
@@ -124,6 +128,13 @@
 		AE83867C22BA307000077B5B /* SLViewModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLViewModelProtocol.h; sourceTree = "<group>"; };
 		AE83867D22BA313F00077B5B /* SLCountryViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCountryViewModel.h; sourceTree = "<group>"; };
 		AE83867E22BA313F00077B5B /* SLCountryViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCountryViewModel.m; sourceTree = "<group>"; };
+		AE8DA43C22CC883300A08D50 /* SLLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLLoginVC.h; sourceTree = "<group>"; };
+		AE8DA43D22CC883300A08D50 /* SLLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLLoginVC.m; sourceTree = "<group>"; };
+		AE8DA43E22CC883300A08D50 /* SLLoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SLLoginVC.xib; sourceTree = "<group>"; };
+		AE8DA44122CC89E600A08D50 /* SLLoginViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLLoginViewModel.h; sourceTree = "<group>"; };
+		AE8DA44222CC89E600A08D50 /* SLLoginViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLLoginViewModel.m; sourceTree = "<group>"; };
+		AE8DA44422CC8ABB00A08D50 /* SLAccountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLAccountModel.h; sourceTree = "<group>"; };
+		AE8DA44522CC8ABB00A08D50 /* SLAccountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLAccountModel.m; sourceTree = "<group>"; };
 		AE9B2DDE22B7450A004946D5 /* SLCustomRACView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCustomRACView.h; sourceTree = "<group>"; };
 		AE9B2DDF22B7450A004946D5 /* SLCustomRACView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLCustomRACView.m; sourceTree = "<group>"; };
 		AE9B2DE522B76A80004946D5 /* SLCountryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLCountryModel.h; sourceTree = "<group>"; };
@@ -238,6 +249,9 @@
 				AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */,
 				AE24E7C522B49808006A3273 /* SLRACExampleVC.h */,
 				AE24E7C622B49808006A3273 /* SLRACExampleVC.m */,
+				AE8DA43C22CC883300A08D50 /* SLLoginVC.h */,
+				AE8DA43D22CC883300A08D50 /* SLLoginVC.m */,
+				AE8DA43E22CC883300A08D50 /* SLLoginVC.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -375,6 +389,8 @@
 				AE83867922BA28CB00077B5B /* SLPickerViewModel.m */,
 				AE83867D22BA313F00077B5B /* SLCountryViewModel.h */,
 				AE83867E22BA313F00077B5B /* SLCountryViewModel.m */,
+				AE8DA44122CC89E600A08D50 /* SLLoginViewModel.h */,
+				AE8DA44222CC89E600A08D50 /* SLLoginViewModel.m */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -404,6 +420,8 @@
 			children = (
 				AE9B2DE522B76A80004946D5 /* SLCountryModel.h */,
 				AE9B2DE622B76A80004946D5 /* SLCountryModel.m */,
+				AE8DA44422CC8ABB00A08D50 /* SLAccountModel.h */,
+				AE8DA44522CC8ABB00A08D50 /* SLAccountModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -559,6 +577,7 @@
 				AE73DDA522B38A9D009C4963 /* LaunchScreen.storyboard in Resources */,
 				AE9B2E0422B76EA2004946D5 /* hanguo.gif in Resources */,
 				AE9B2E0022B76EA2004946D5 /* ydl.gif in Resources */,
+				AE8DA44022CC883300A08D50 /* SLLoginVC.xib in Resources */,
 				AE9B2E0722B76EA2004946D5 /* agt.gif in Resources */,
 				AE9B2E0122B76EA2004946D5 /* putaoya.gif in Resources */,
 				AE9B2E0E22B76EA2004946D5 /* flags.plist in Resources */,
@@ -605,12 +624,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LearnObjC/Pods-LearnObjC-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -697,6 +718,8 @@
 				AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */,
 				AE24E7B922B490FD006A3273 /* SLSuperOrSuperClassVC.m in Sources */,
 				AE36AAE922B9CD96009215D6 /* SLUseRACTVC.m in Sources */,
+				AE8DA44322CC89E600A08D50 /* SLLoginViewModel.m in Sources */,
+				AE8DA44622CC8ABB00A08D50 /* SLAccountModel.m in Sources */,
 				AE83867A22BA28CB00077B5B /* SLPickerViewModel.m in Sources */,
 				AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */,
 				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
@@ -705,6 +728,7 @@
 				AE24E7B622B48979006A3273 /* NSKVONotifying_SLPerson.m in Sources */,
 				AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */,
 				AE73DDD722B391E6009C4963 /* SLObserverVC.m in Sources */,
+				AE8DA43F22CC883300A08D50 /* SLLoginVC.m in Sources */,
 				AE9B2DEA22B76B96004946D5 /* SLContryView.m in Sources */,
 				AE24E7C722B49808006A3273 /* SLRACExampleVC.m in Sources */,
 				AE83867F22BA313F00077B5B /* SLCountryViewModel.m in Sources */,

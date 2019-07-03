@@ -16,9 +16,9 @@
 
 @implementation SLCountryViewModel
 
-- (void)bindViewModel:(UIView *)bindView {
+- (void)bindView:(UIView *)view {
     
-    SLContryView *countryView = (SLContryView *)bindView;
+    SLContryView *countryView = (SLContryView *)view;
     countryView.nameLabel.text = self.model.name;
     NSString *iconFilePath = [[NSBundle bundleForClass:[self class]] pathForResource:self.model.icon ofType:nil];
     countryView.iconImageView.image = [UIImage imageWithContentsOfFile:iconFilePath];

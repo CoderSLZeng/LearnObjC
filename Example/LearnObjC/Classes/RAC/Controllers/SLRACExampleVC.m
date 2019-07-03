@@ -77,7 +77,7 @@
     [self useRACLiftSelector];
     [self userRACSignalForSelector];
     
-    [self.pickerViewModel bindViewModel:self.pickerView];
+    [self.pickerViewModel bindView:self.pickerView];
     
     
 }

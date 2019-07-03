@@ -6,6 +6,7 @@ target 'LearnObjC' do
   use_frameworks!
 
   pod 'ReactiveObjC'
+  pod 'SVProgressHUD'
 
   target 'LearnObjCTests' do
     inherit! :search_paths

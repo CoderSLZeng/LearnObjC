@@ -28,8 +28,8 @@
 @implementation SLPickerViewModel
 
 #pragma mark - Public
-- (void)bindViewModel:(UIView *)bindView {
-    UIPickerView *pickerView = (UIPickerView *)bindView;
+- (void)bindView:(UIView *)view {
+    UIPickerView *pickerView = (UIPickerView *)view;
     pickerView.dataSource = self;
     pickerView.delegate = self;
 }
@@ -63,7 +63,7 @@
     }
     
     SLCountryViewModel *countryViewModel = self.countryVMs[row];
-    [countryViewModel bindViewModel:countryView];
+    [countryViewModel bindView:countryView];
     
     return countryView;
 }

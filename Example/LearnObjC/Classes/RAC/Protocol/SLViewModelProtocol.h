@@ -14,7 +14,7 @@
 @protocol SLViewModelProtocol <NSObject>
 
 @optional
-- (void)bindViewModel:(UIView *)bindView;
+- (void)bindView:(UIView *)view;
 
 @end
 
