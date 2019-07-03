@@ -889,6 +889,27 @@
     [signal sendNext:@2];
 }
 
+/**
+ takeLast：取最后N次的信号，前提条件，订阅者必须调用完成，因为只有完成，就知道总共有多少信号。
+ */
++ (void)use_rac_takeLast {
+    // 1、创建信号
+    RACSubject *signal = [RACSubject subject];
+    
+    // 2、处理信号，订阅信号
+    [[signal takeLast:1] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+    
+    // 3.发送信号
+    [signal sendNext:@1];
+    
+    [signal sendNext:@2];
+    
+    [signal sendCompleted];
+}
+
 #pragma mark - Private
 //
 /**

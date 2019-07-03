@@ -70,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_take;
 
++ (void)use_rac_takeLast;
+
 @end
 
 NS_ASSUME_NONNULL_END
