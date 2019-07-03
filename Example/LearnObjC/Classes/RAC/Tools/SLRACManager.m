@@ -883,35 +883,6 @@
 }
 
 /**
- interval：隔多少秒发送消息
- */
-+ (void)use_rac_interval {
-    // 定时器
-    // [NSTimer scheduledTimerWithTimeInterval:<#(NSTimeInterval)#> target:<#(nonnull id)#> selector:<#(nonnull SEL)#> userInfo:<#(nullable id)#> repeats:<#(BOOL)#>]
-    
-    // interval：隔多少秒发送消息
-    // RACScheduler：多线程,管理现场
-        [[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSDate * _Nullable x) {
-    
-            NSLog(@"执行了定时器");
-    
-        }];
-}
-
-/**
- delay：延迟发送数据
- */
-+ (void)use_rac_delay {
-    [[[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-        NSLog(@"执行signalBlock");
-        [subscriber sendNext:@"延迟2秒后再发送数据"];
-        return nil;
-    }] delay:2] subscribeNext:^(id  _Nullable x) {
-        NSLog(@"%@",x);
-    }];
-}
-
-/**
  ignore：忽略完某些值的信号
  */
 + (void)use_rac_ignore {
@@ -1034,7 +1005,7 @@
     }];
 }
 
-#pragma mark -  ReactiveCocoa操作方法之线程
+#pragma mark - ReactiveCocoa操作方法之线程
 /**
  副作用：关于信号与线程,我们把在创建信号时block中的代码称之为副作用。
  deliverOn: 切换到指定线程中，可用于回到主线中刷新UI，内容传递切换到指定线程中。
@@ -1084,6 +1055,53 @@
      测试2：使用deliverON，发送消息还在原来的线程，但是接收消息切换到主线程。
      测试3：使用subscribeON，发送消息和接收消息都被切换到了主线程中执行。
      */
+}
+
+#pragma mark - ReactiveCocoa操作方法之时间
+/**
+ timeout：超时，可以让一个信号在一定的时间后，自动报错。
+ */
++ (void)use_rac_timeout {
+    RACSignal *signal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return nil;
+    }] timeout:1 onScheduler:[RACScheduler currentScheduler]];
+    
+    [signal subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    } error:^(NSError *error) {
+        // 1秒后会自动调用
+        NSLog(@"%@",error);
+    }];
+}
+
+/**
+ interval 定时：每隔一段时间发出信号
+ */
++ (void)use_rac_interval {
+    // 定时器
+    // [NSTimer scheduledTimerWithTimeInterval:<#(NSTimeInterval)#> target:<#(nonnull id)#> selector:<#(nonnull SEL)#> userInfo:<#(nullable id)#> repeats:<#(BOOL)#>]
+    
+    // interval：隔多少秒发送消息
+    // RACScheduler：多线程,管理现场
+    [[RACSignal interval:1 onScheduler:[RACScheduler mainThreadScheduler]] subscribeNext:^(NSDate * _Nullable x) {
+        
+        NSLog(@"执行了定时器");
+        
+    }];
+}
+
+/**
+ delay：延迟发送数据next
+ */
++ (void)use_rac_delay {
+    [[[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+        NSLog(@"执行signalBlock");
+        [subscriber sendNext:@"延迟2秒后再发送数据"];
+        return nil;
+    }] delay:2] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"%@",x);
+    }];
 }
 
 #pragma mark - Private

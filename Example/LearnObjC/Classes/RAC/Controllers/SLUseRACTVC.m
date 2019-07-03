@@ -93,8 +93,6 @@
              @"use_rac_reduce",
              @"use_rac_combineLatest_reduce",
              @"use_rac_filter",
-             @"use_rac_interval",
-             @"use_rac_delay",
              @"use_rac_ignore",
              @"use_rac_distinctUntilChanged",
              @"use_rac_take",
@@ -104,6 +102,9 @@
              @"use_rac_switchToLatest",
              @"use_rac_doNext_doCompleted",
              @"use_rac_deliverOn_subscribeOn",
+             @"use_rac_timeout",
+             @"use_rac_interval",
+             @"use_rac_delay",
              @"ReactiveObjC使用场景"
              ];
 }

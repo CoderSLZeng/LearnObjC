@@ -62,10 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_filter;
 
-+ (void)use_rac_interval;
-
-+ (void)use_rac_delay;
-
 + (void)use_rac_ignore;
 
 + (void)use_rac_distinctUntilChanged;
@@ -83,6 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)use_rac_doNext_doCompleted;
 
 + (void)use_rac_deliverOn_subscribeOn;
+
++ (void)use_rac_timeout;
+
++ (void)use_rac_interval;
+
++ (void)use_rac_delay;
 @end
 
 NS_ASSUME_NONNULL_END
