@@ -98,6 +98,7 @@
              @"use_rac_distinctUntilChanged",
              @"use_rac_take",
              @"use_rac_takeLast",
+             @"use_rac_takeUntil",
              @"ReactiveObjC使用场景"
              ];
 }

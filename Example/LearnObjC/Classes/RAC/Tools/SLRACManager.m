@@ -910,6 +910,16 @@
     [signal sendCompleted];
 }
 
+/**
+ takeUntil(RACSignal *)：获取信号直到某个信号执行完成
+ */
++ (void)use_rac_takeUntil {
+    UITextField *textField = [[UITextField alloc] init];
+    // 监听文本框的改变直到当前对象被销毁
+    RACSignal *signal = [textField.rac_textSignal takeUntil:self.rac_willDeallocSignal];
+    NSLog(@"%@", signal);
+}
+
 #pragma mark - Private
 //
 /**
