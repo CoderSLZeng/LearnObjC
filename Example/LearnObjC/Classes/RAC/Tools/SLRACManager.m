@@ -911,13 +911,25 @@
 }
 
 /**
- takeUntil(RACSignal *)：获取信号直到某个信号执行完成
+ takeUntil:(RACSignal *)：获取信号直到某个信号执行完成
  */
 + (void)use_rac_takeUntil {
     UITextField *textField = [[UITextField alloc] init];
     // 监听文本框的改变直到当前对象被销毁
     RACSignal *signal = [textField.rac_textSignal takeUntil:self.rac_willDeallocSignal];
     NSLog(@"%@", signal);
+}
+
+/**
+ skip:(NSUInteger)：跳过几个信号,不接受。
+ */
++ (void)use_rac_use_rac_skip {
+    UITextField *textField = [[UITextField alloc] init];
+    
+    [[textField.rac_textSignal skip:1] subscribeNext:^(NSString * _Nullable x) {
+       NSLog(@"%@",x);
+    }];
+
 }
 
 #pragma mark - Private

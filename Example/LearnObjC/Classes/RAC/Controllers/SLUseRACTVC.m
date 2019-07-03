@@ -99,6 +99,7 @@
              @"use_rac_take",
              @"use_rac_takeLast",
              @"use_rac_takeUntil",
+             @"use_rac_skip",
              @"ReactiveObjC使用场景"
              ];
 }
