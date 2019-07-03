@@ -81,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)use_rac_switchToLatest;
 
 + (void)use_rac_doNext_doCompleted;
+
++ (void)use_rac_deliverOn_subscribeOn;
 @end
 
 NS_ASSUME_NONNULL_END

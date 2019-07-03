@@ -103,6 +103,7 @@
              @"use_rac_skip",
              @"use_rac_switchToLatest",
              @"use_rac_doNext_doCompleted",
+             @"use_rac_deliverOn_subscribeOn",
              @"ReactiveObjC使用场景"
              ];
 }

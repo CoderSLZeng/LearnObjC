@@ -1034,6 +1034,58 @@
     }];
 }
 
+#pragma mark -  ReactiveCocoa操作方法之线程
+/**
+ 副作用：关于信号与线程,我们把在创建信号时block中的代码称之为副作用。
+ deliverOn: 切换到指定线程中，可用于回到主线中刷新UI，内容传递切换到指定线程中。
+ subscribeOn: 内容传递和副作用都会切换到制定线程中。
+ deliverOnMainThread：能保证原信号subscribeNext，sendError，sendCompleted都在主线程MainThread中执行。
+ */
++ (void)use_rac_deliverOn_subscribeOn {
+    // 测试1：系统并行队列中异步执行，未使用deliverON切换线程
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:@"测试1-endNext"];
+            NSLog(@"测试1-当前线程：%@", [NSThread currentThread]);
+            return nil;
+        }] subscribeNext:^(id  _Nullable x) {
+            NSLog(@"测试1-Next:%@", x);
+            NSLog(@"测试1-Next当前线程：%@", [NSThread currentThread]);
+        }];
+    });
+    
+    // 测试2：系统并行队列中异步执行，使用deliverON切换线程
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:@"测试2-endNext"];
+            NSLog(@"测试2-当前线程：%@",[NSThread currentThread]);
+            return nil;
+        }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id  _Nullable x) {
+            NSLog(@"测试2-Next:%@",x);
+            NSLog(@"测试2-Next当前线程：%@",[NSThread currentThread]);
+        }];
+    });
+    
+    //测试3：系统并行队列中异步执行,使用subscribeOn切换线程
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[[RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            [subscriber sendNext:@"测试3-sendNext"];
+            NSLog(@"测试3-sendNext当前线程：%@",[NSThread currentThread]);
+            return nil;
+        }] subscribeOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id  _Nullable x) {
+            NSLog(@"测试3-Next:%@",x);
+            NSLog(@"测试3-Next当前线程：%@",[NSThread currentThread]);
+        }];
+    });
+
+    /**
+     分析：
+     测试1：未切换线程，发送消息与接收消息都在异步线程中
+     测试2：使用deliverON，发送消息还在原来的线程，但是接收消息切换到主线程。
+     测试3：使用subscribeON，发送消息和接收消息都被切换到了主线程中执行。
+     */
+}
+
 #pragma mark - Private
 //
 /**
