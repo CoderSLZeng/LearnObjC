@@ -335,6 +335,7 @@
     return cmd;
 }
 
+#pragma mark - 映射
 /**
  flattenMap作用:把源信号的内容映射成一个新的信号，信号可以是任意类型。
  flattenMap使用步骤:
@@ -444,7 +445,7 @@
     [signal sendNext:@1];
 }
 
-
+#pragma mark - 组合
 /**
  按一定顺序拼接信号，当多个信号发出的时候，有顺序的接收信号。
  必须要第一个信号发送完成，第二个信号才能订阅
@@ -802,6 +803,7 @@
     }];
 }
 
+#pragma mark - 过滤
 /**
  filter：过滤信号，使用它可以获取满足条件的信号，能少用if。
  */
@@ -949,6 +951,28 @@
     [signal sendNext:@1];
 }
 
+#pragma mark - 秩序
+/**
+ doNext：执行Next之前，会先执行这个Block
+ doCompleted：执行sendCompleted之前，会先执行这个Block
+ */
++ (void)use_rac_doNext_doCompleted {
+    [[[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        [subscriber sendNext:@1];
+        [subscriber sendCompleted];
+        return nil;
+    }] doNext:^(id x) {
+        // 执行[subscriber sendNext:@1];之前会调用这个Block
+        NSLog(@"doNext");;
+    }] doCompleted:^{
+        // 执行[subscriber sendCompleted];之前会调用这个Block
+        NSLog(@"doCompleted");;
+    }] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+}
+
 #pragma mark - Private
 //
 /**
@@ -966,7 +990,6 @@
     }];
     
     return signal;
-    
 }
 
 /**

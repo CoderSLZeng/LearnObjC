@@ -77,6 +77,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)use_rac_use_rac_skip;
 
 + (void)use_rac_switchToLatest;
+
++ (void)use_rac_doNext_doCompleted;
 @end
 
 NS_ASSUME_NONNULL_END
