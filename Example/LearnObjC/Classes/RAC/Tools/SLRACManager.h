@@ -94,6 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 + (void)use_rac_retry;
+
++ (void)use_rac_replay;
 @end
 
 NS_ASSUME_NONNULL_END

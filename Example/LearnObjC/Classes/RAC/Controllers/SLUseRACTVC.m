@@ -106,6 +106,7 @@
              @"use_rac_interval",
              @"use_rac_delay",
              @"use_rac_retry",
+             @"use_rac_replay",
              @"ReactiveObjC使用场景"
              ];
 }

@@ -1132,6 +1132,31 @@
     }];
 }
 
+/**
+ replay重放：当一个信号被多次订阅，反复播放内容
+ */
++ (void)use_rac_replay {
+    RACSignal *signal = [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        [subscriber sendNext:@1];
+        [subscriber sendNext:@2];
+        
+        return nil;
+    }] replay];
+    
+    [signal subscribeNext:^(id x) {
+        
+        NSLog(@"第一个订阅者%@",x);
+        
+    }];
+    
+    [signal subscribeNext:^(id x) {
+        
+        NSLog(@"第二个订阅者%@",x);
+        
+    }];
+}
+
 #pragma mark - Private
 /**
  请求分类数据
