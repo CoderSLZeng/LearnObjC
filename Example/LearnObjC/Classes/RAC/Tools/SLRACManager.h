@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)useRACCommandWithExecutionSignalsSwitchToLatest;
 
++ (void)use_rac_flattenMap;
+
++ (void)use_rac_map;
+
 + (void)use_rac_flattenMap_map;
 
 + (void)use_rac_concat;
@@ -48,6 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_zipWith;
 
++ (void)use_rac_combineLatest;
+
++ (void)use_rac_reduce;
+
 + (void)use_rac_combineLatest_reduce;
 
 + (void)use_rac_filter;
@@ -57,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)use_rac_delay;
 
 + (void)use_rac_ignore;
+
++ (void)use_rac_distinctUntilChanged;
 
 @end
 

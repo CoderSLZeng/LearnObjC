@@ -78,6 +78,8 @@
              @"useRACCommandWithExecuting",
              @"useRACCommandWithExecutingSkip",
              @"useRACCommandWithExecutionSignalsSwitchToLatest",
+             @"use_rac_flattenMap",
+             @"use_rac_map",
              @"use_rac_flattenMap_map",
              @"use_rac_concat",
              @"use_rac_concat2",
@@ -86,11 +88,14 @@
              @"use_rac_then2",
              @"use_rac_merge",
              @"use_rac_zipWith",
+             @"use_rac_combineLatest",
+             @"use_rac_reduce",
              @"use_rac_combineLatest_reduce",
              @"use_rac_filter",
              @"use_rac_interval",
              @"use_rac_delay",
              @"use_rac_ignore",
+             @"use_rac_distinctUntilChanged",
              @"ReactiveObjC使用场景"
              ];
 }

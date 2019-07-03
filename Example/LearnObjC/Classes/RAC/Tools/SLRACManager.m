@@ -10,6 +10,7 @@
 
 #pragma mark - Frameworks
 #import <ReactiveObjC/ReactiveObjC.h>
+#import <ReactiveObjC/RACReturnSignal.h>
 
 @implementation SLRACManager
 
@@ -334,6 +335,76 @@
     return cmd;
 }
 
+/**
+ flattenMap作用:把源信号的内容映射成一个新的信号，信号可以是任意类型。
+ flattenMap使用步骤:
+ 1.传入一个block，block类型是返回值RACStream，参数value
+ 2.参数value就是源信号的内容，拿到源信号的内容做处理
+ 3.包装成RACReturnSignal信号，返回出去。
+ 
+ flattenMap底层实现:
+ 0.flattenMap内部调用bind方法实现的，flattenMap中block的返回值，会作为bind中bindBlock的返回值。
+ 1.当订阅绑定信号，就会生成bindBlock。
+ 2.当源信号发送内容，就会调用bindBlock(value, *stop)
+ 3.调用bindBlock，内部就会调用flattenMap的block，flattenMap的block作用：就是把处理好的数据包装成信号。
+ 4.返回的信号最终会作为bindBlock中的返回信号，当做bindBlock的返回信号。
+ 5.订阅bindBlock的返回信号，就会拿到绑定信号的订阅者，把处理完成的信号内容发送出来。
+ */
++ (void)use_rac_flattenMap {
+    UITextField *textField = [[UITextField alloc] init];
+    [[textField.rac_textSignal flattenMap:^__kindof RACStream * _Nullable(NSString * _Nullable value) {
+        // block什么时候 : 源信号发出的时候，就会调用这个block。
+        // block作用 : 改变源信号的内容。
+        NSString *result = [NSString stringWithFormat:@"输出:%@",value];
+        // 返回值：绑定信号的内容.
+        return [RACReturnSignal return:result];
+        
+    }] subscribeNext:^(id x) {
+        
+        // 订阅绑定信号，每当源信号发送内容，做完处理，就会调用这个block。
+        NSLog(@"%@",x);
+    }];
+}
+
+/**
+ map作用:把源信号的值映射成一个新的值
+ 
+ map使用步骤:
+ 1.传入一个block,类型是返回对象，参数是value
+ 2.value就是源信号的内容，直接拿到源信号的内容做处理
+ 3.把处理好的内容，直接返回就好了，不用包装成信号，返回的值，就是映射的值。
+ 
+ map底层实现:
+ 0.map底层其实是调用flatternmap，map中block中的返回的值会作为flatternmap中block中的值。
+ 1.当订阅绑定信号，就会生成bindBlock。
+ 3.当源信号发送内容，就会调用bindBlock(value, *stop)
+ 4.调用bindBlock，内部就会调用flattenMap的block
+ 5.flattenMap的block内部会调用map中的block，把map中的block返回的内容包装成返回的信号。
+ 6.返回的信号最终会作为bindBlock中的返回信号，当做bindBlock的返回信号。
+ 7.订阅bindBlock的返回信号，就会拿到绑定信号的订阅者，把处理完成的信号内容发送出来。
+ */
++ (void)use_rac_map {
+    UITextField *textField = [[UITextField alloc] init];
+    [[textField.rac_textSignal map:^id(id value) {
+        // 当源信号发出，就会调用这个block，修改源信号的内容
+        // 返回值：就是处理完源信号的内容。
+        return [NSString stringWithFormat:@"输出:%@",value];
+    }] subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+}
+
+/**
+ flatternmap + map 组合使用
+ flatternmap和map的区别
+ 1.flatternmap中的Block返回信号。
+ 2.map中的Block返回对象。
+ 3.开发中，如果信号发出的值不是信号，映射一般使用map
+ 4.开发中，如果信号发出的值是信号，映射一般使用flatternmap。
+ 
+ 总结：signalOfsignals用flatternmap。
+ */
 + (void)use_rac_flattenMap_map {
     // 信号中信号:信号发送一个信号
     RACSubject *signalOfSignals = [RACSubject subject];
@@ -375,6 +446,7 @@
 
 
 /**
+ 按一定顺序拼接信号，当多个信号发出的时候，有顺序的接收信号。
  必须要第一个信号发送完成，第二个信号才能订阅
  */
 + (void)use_rac_concat {
@@ -429,10 +501,25 @@
         return nil;
     }];
     
-    // 尽量不要订阅多次
-    [[signalA concat:signalB] subscribeNext:^(id  _Nullable x) {
+    // 把signalA拼接到signalB后，signalA发送完成，signalB才会被激活。
+    RACSignal *concatSignal = [signalA concat:signalB];
+    
+    // 以后只需要面对拼接信号开发。
+    // 订阅拼接的信号，不需要单独订阅signalA，signalB
+    // 内部会自动订阅。
+    // 注意：第一个信号必须发送完成，第二个信号才会被激活
+    [concatSignal subscribeNext:^(id  _Nullable x) {
         NSLog(@"%@",x);
     }];
+    
+    // concat底层实现:
+    // 1.当拼接信号被订阅，就会调用拼接信号的didSubscribe
+    // 2.didSubscribe中，会先订阅第一个源信号（signalA）
+    // 3.会执行第一个源信号（signalA）的didSubscribe
+    // 4.第一个源信号（signalA）didSubscribe中发送值，就会调用第一个源信号（signalA）订阅者的nextBlock,通过拼接信号的订阅者把值发送出来.
+    // 5.第一个源信号（signalA）didSubscribe中发送完成，就会调用第一个源信号（signalA）订阅者的completedBlock,订阅第二个源信号（signalB）这时候才激活（signalB）。
+    // 6.订阅第二个源信号（signalB）,执行第二个源信号（signalB）的didSubscribe
+    // 7.第二个源信号（signalA）didSubscribe中发送值,就会通过拼接信号的订阅者把值发送出来.
 }
 
 + (void)use_rac_concat3 {
@@ -442,9 +529,9 @@
 }
 
 /**
- then：
- 1.拼接，忽略掉上一个信号的值
- 2.解决block嵌套问题
+ then：用于连接两个信号，当第一个信号完成，才会连接then返回的信号。
+ 注意使用then，之前信号的值会被忽略掉.
+ 底层实现：1、先过滤掉之前的信号发出的值。2.使用concat连接then返回的信号
  */
 + (void)use_rac_then {
     RACSignal *signalA = [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
@@ -472,12 +559,14 @@
         }];
     }] subscribeNext:^(id  _Nullable x) {
         
+        // 只能接收到第二个信号的值，也就是then返回信号的值
         NSLog(@"%@",x);
         
     }];
 }
 
 /**
+ 解决block嵌套问题
  请求界面数据:先请求分类,在请求详情
  */
 + (void)use_rac_then2 {
@@ -555,7 +644,7 @@
 }
 
 /**
- 合并,只要任何一个信号发送数据,就能订阅
+ merge：把多个信号合并为一个信号，任何一个信号有新值的时候就会调用
  */
 + (void)use_rac_merge {
     // 只要想无序的整合信号数据
@@ -569,16 +658,25 @@
     // 发送
     [signalB sendNext:@"B"];
     [signalA sendNext:@"A"];
+    
+    // 底层实现：
+    // 1.合并信号被订阅的时候，就会遍历所有信号，并且发出这些信号。
+    // 2.每发出一个信号，这个信号就会被订阅
+    // 3.也就是合并信号一被订阅，就会订阅里面所有的信号。
+    // 4.只要有一个信号被发出就会被监听。
 }
 
 /**
- 压缩信号数据 变成 元组，同时发送数据，才能订阅到
+ zipWith：把两个信号压缩成一个信号，只有当两个信号同时发出信号内容时，并且把两个信号的内容合并成一个元组，才会触发压缩流的next事件。
  */
 + (void)use_rac_zipWith {
     RACSubject *signalA = [RACSubject subject];
     RACSubject *signalB = [RACSubject subject];
     
-    [[signalA zipWith:signalB] subscribeNext:^(id  _Nullable x) {
+    // 压缩信号A，信号B
+    RACSignal *zipSignal = [signalA zipWith:signalB];
+    
+    [zipSignal subscribeNext:^(id  _Nullable x) {
         
         RACTupleUnpack(NSString *a, NSString *b) = x;
         NSLog(@"%@ %@",a, b);
@@ -587,18 +685,86 @@
     
     [signalA sendNext:@"A"];
     [signalB sendNext:@"B"];
+    
+    // 底层实现:
+    // 1.定义压缩信号，内部就会自动订阅signalA，signalB
+    // 2.每当signalA或者signalB发出信号，就会判断signalA，signalB有没有发出个信号，有就会把最近发出的信号都包装成元组发出。
 }
 
 /**
- combineLatest：合并
-    任何一个信号,只要改变就能订阅到
-    (combineLatest, reduce)
- reduce：聚合
-    把多个信号的值,聚合为一个值
-    参数：把多个信号的值,聚合为一个值
+ combineLatest：combineLatest:将多个信号合并起来，并且拿到各个信号的最新的值,必须每个合并的signal至少都有过一次sendNext，才会触发合并的信号。
+ */
++ (void)use_rac_combineLatest {
+    RACSignal *signalA = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        [subscriber sendNext:@1];
+        
+        return nil;
+    }];
+    
+    RACSignal *signalB = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        [subscriber sendNext:@2];
+        
+        return nil;
+    }];
+    
+    // 把两个信号组合成一个信号,跟zip一样，没什么区别
+    RACSignal *combineSignal = [signalA combineLatestWith:signalB];
+    
+    [combineSignal subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+    
+    // 底层实现：
+    // 1.当组合信号被订阅，内部会自动订阅signalA，signalB,必须两个信号都发出内容，才会被触发。
+    // 2.并且把两个信号组合成元组发出。
+}
+
+/**
+ reduce聚合：用于信号发出的内容是元组，把信号发出元组的值聚合成一个值
+ */
++ (void)use_rac_reduce {
+    RACSignal *signalA = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        [subscriber sendNext:@1];
+        
+        return nil;
+    }];
+    
+    RACSignal *signalB = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        [subscriber sendNext:@2];
+        
+        return nil;
+    }];
+    
+    // 聚合
+    // 常见的用法，（先组合在聚合）。combineLatest:(id<NSFastEnumeration>)signals reduce:(id (^)())reduceBlock
+    // reduce中的block简介:
+    // reduceblcok中的参数，有多少信号组合，reduceblcok就有多少参数，每个参数就是之前信号发出的内容
+    // reduceblcok的返回值：聚合信号之后的内容。
+    RACSignal *reduceSignal = [RACSignal combineLatest:@[signalA,signalB] reduce:^id(NSNumber *num1 ,NSNumber *num2){
+        
+        return [NSString stringWithFormat:@"%@ %@",num1,num2];
+        
+    }];
+    
+    [reduceSignal subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
+    
+    // 底层实现:
+    // 1.订阅聚合信号，每次有内容发出，就会执行reduceblcok，把信号内容转换成reduceblcok返回的值。
+}
+
+
+/**
+ combineLatest + reduce 组合使用
  */
 + (void)use_rac_combineLatest_reduce {
-    // 当前示例只是用来展示(combineLatest, reduce)的用法，并未实例这3个对象
     UITextField *accountTF = [[UITextField alloc] init];
     UITextField *pwdTF = [[UITextField alloc] init];
     UIButton *loginBtn = [[UIButton alloc] init];
@@ -637,10 +803,9 @@
 }
 
 /**
- 过滤：能少用if
+ filter：过滤信号，使用它可以获取满足条件的信号，能少用if。
  */
 + (void)use_rac_filter {
-    // 当前示例只是用来展示filter的用法，并未实例这个对象
     UITextField *pwdTF = [[UITextField alloc] init];
     
     // 密码长度小于6,不处理
@@ -655,7 +820,7 @@
 }
 
 /**
- interval:隔多少秒发送消息
+ interval：隔多少秒发送消息
  */
 + (void)use_rac_interval {
     // 定时器
@@ -687,10 +852,20 @@
  ignore：忽略完某些值的信号
  */
 + (void)use_rac_ignore {
-    // 当前示例只是用来展示ignore的用法，并未实例这个对象
     UITextField *textTF = [[UITextField alloc] init];
     // 内部调用filter过滤，忽略掉ignore的值
     [[textTF.rac_textSignal ignore:@"1"] subscribeNext:^(NSString * _Nullable x) {
+        NSLog(@"%@",x);
+    }];
+}
+
+/**
+ distinctUntilChanged：当上一次的值和当前的值有明显的变化就会发出信号，否则会被忽略掉。
+ */
++ (void)use_rac_distinctUntilChanged {
+    UITextField *textTF = [[UITextField alloc] init];
+    // 内部调用filter过滤，忽略掉ignore的值
+    [[textTF.rac_textSignal distinctUntilChanged] subscribeNext:^(NSString * _Nullable x) {
         NSLog(@"%@",x);
     }];
 }
