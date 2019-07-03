@@ -14,7 +14,8 @@
 
 @implementation SLRACManager
 
-#pragma mark - Public
+#pragma mark - 接口
+#pragma mark - ReactiveObjC常见类
 /**
  RACSignal：信号
  
@@ -23,10 +24,10 @@
  RACSignal：只能订阅，不能发送
  RACSignal：只有一个订阅者
  */
-+ (void)useRACSignal {
++ (void)use_RACSignal {
     /**
      信号 => 订阅 （响应式编程思想，只要信号一变化，马上通知你）
-     RACSignal：信号，ReactiveCocoa最基本类
+     RACSignal：信号，ReactiveObjC最基本类
      RACDisposable：处理数据,清空数据
      RACSubscriber：订阅者,发送信号消息
      */
@@ -98,7 +99,7 @@
  
  RACSubject 代替代理
  */
-+ (void)useRACSubject {
++ (void)use_RACSubject {
     // 创建信号
     RACSubject *subject = [RACSubject subject];
     
@@ -120,7 +121,7 @@
 /** 
  RACReplaySubject：无需注意订阅和发送信号的顺序
  */
-+ (void)useRACReplaySubject {
++ (void)use_RACReplaySubject {
     // 创建信号
     RACReplaySubject *replaySubject = [RACReplaySubject subject];
     
@@ -137,7 +138,7 @@
 /**
  RACTuple集合：是异步线程处理数据
  */
-+ (void)useRACTuple {
++ (void)use_RACTuple {
     NSDictionary *dict = @{
                            @"name" : @"jack",
                            @"age"  : @18,
@@ -162,7 +163,7 @@
 /**
  RACMulticastConnection：解决RACSignal被多次订阅的副作用
  */
-+ (void)useRACMulticastConnection {
++ (void)use_RACMulticastConnection {
     
     @weakify(self)
     
@@ -201,7 +202,7 @@
 }
 
 
-#pragma mark - RACCommand
+#pragma mark RACCommand
 /**
  RACCommand：处理事件总结
  
@@ -216,7 +217,7 @@
  4.execute执行，执行command的block
 
  */
-+ (void)useRACCommandWithExecute {
++ (void)use_RACCommandWithExecute {
     // 创建RACCommand
     RACCommand *cmd = [self createRACCommand];
 
@@ -229,7 +230,7 @@
     }];
 }
 
-+ (void)useRACCommandWithExecutionSignals {
++ (void)use_RACCommandWithExecutionSignals {
     // 创建RACCommand
     RACCommand *cmd = [self createRACCommand];
     
@@ -251,7 +252,7 @@
     
 }
 
-+ (void)useRACCommandWithExecuting {
++ (void)use_RACCommandWithExecuting {
     // 创建RACCommand
     RACCommand *cmd = [self createRACCommand];
     
@@ -269,7 +270,7 @@
     
 }
 
-+ (void)useRACCommandWithExecutingSkip {
++ (void)use_RACCommandWithExecutingSkip {
     // 创建RACCommand
     RACCommand *cmd = [self createRACCommand];
     
@@ -288,7 +289,7 @@
     
 }
 
-+ (void)useRACCommandWithExecutionSignalsSwitchToLatest {
++ (void)use_RACCommandWithExecutionSignalsSwitchToLatest {
     // 创建RACCommand
     RACCommand *cmd = [self createRACCommand];
     
@@ -307,34 +308,7 @@
     
 }
 
-#pragma mark - Private
-+ (void)loadData:(void(^)(id))success {
-    NSLog(@"加载数据");
-}
-
-+ (RACCommand *)createRACCommand {
-    RACCommand *cmd = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
-        // RACCommand的block
-        NSLog(@"执行RACCommand的block, input = %@", input);
-        
-        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
-            
-            // 信号的block
-            NSLog(@"执行RACSignal的block，subscriber = %@", subscriber);
-            // 发送数据 => RACReplaySubject
-            [subscriber sendNext:@"发送数据 == Hello RACCommand"];
-            // 发送完成
-            [subscriber sendCompleted];
-            
-            return [RACDisposable disposableWithBlock:^{
-                NSLog(@"执行RACDisposable的block");
-            }];
-        }];
-    }];
-    return cmd;
-}
-
-#pragma mark - ReactiveCocoa核心方法bind
+#pragma mark - ReactiveObjC核心方法之绑定
 + (void)use_rac_bind {
     
     UITextField *textField = [[UITextField alloc] init];
@@ -370,7 +344,7 @@
     // 5.订阅RACReturnSignal，就会拿到绑定信号的订阅者，把处理完成的信号内容发送出来。
     
     // 注意:不同订阅者，保存不同的nextBlock，看源码的时候，一定要看清楚订阅者是哪个。
-    // 这里需要手动导入#import <ReactiveCocoa/RACReturnSignal.h>，才能使用RACReturnSignal。
+    // 这里需要手动导入#import <ReactiveObjC/RACReturnSignal.h>，才能使用RACReturnSignal。
     
     [[textField.rac_textSignal bind:^RACSignalBindBlock{
         
@@ -395,7 +369,7 @@
     
 }
 
-#pragma mark - ReactiveCocoa操作方法之映射(flattenMap,Map)
+#pragma mark - ReactiveObjC操作方法之映射
 /**
  flattenMap作用:把源信号的内容映射成一个新的信号，信号可以是任意类型。
  flattenMap使用步骤:
@@ -505,7 +479,7 @@
     [signal sendNext:@1];
 }
 
-#pragma mark - ReactiveCocoa操作方法之组合
+#pragma mark - ReactiveObjC操作方法之组合
 /**
  按一定顺序拼接信号，当多个信号发出的时候，有顺序的接收信号。
  必须要第一个信号发送完成，第二个信号才能订阅
@@ -753,7 +727,7 @@
 }
 
 /**
- combineLatest：combineLatest:将多个信号合并起来，并且拿到各个信号的最新的值,必须每个合并的signal至少都有过一次sendNext，才会触发合并的信号。
+ combineLatest：将多个信号合并起来，并且拿到各个信号的最新的值，必须每个合并的signal至少都有过一次sendNext，才会触发合并的信号。
  */
 + (void)use_rac_combineLatest {
     RACSignal *signalA = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
@@ -779,7 +753,7 @@
     }];
     
     // 底层实现：
-    // 1.当组合信号被订阅，内部会自动订阅signalA，signalB,必须两个信号都发出内容，才会被触发。
+    // 1.当组合信号被订阅，内部会自动订阅signalA，signalB，必须两个信号都发出内容，才会被触发。
     // 2.并且把两个信号组合成元组发出。
 }
 
@@ -863,7 +837,7 @@
     }];
 }
 
-#pragma mark - ReactiveCocoa操作方法之过滤
+#pragma mark - ReactiveObjC操作方法之过滤
 /**
  filter：过滤信号，使用它可以获取满足条件的信号，能少用if。
  */
@@ -982,7 +956,7 @@
     [signal sendNext:@1];
 }
 
-#pragma mark - ReactiveCocoa操作方法之秩序
+#pragma mark - ReactiveObjC操作方法之秩序
 /**
  doNext：执行Next之前，会先执行这个Block
  doCompleted：执行sendCompleted之前，会先执行这个Block
@@ -1004,7 +978,7 @@
     }];
 }
 
-#pragma mark - ReactiveCocoa操作方法之线程
+#pragma mark - ReactiveObjC操作方法之线程
 /**
  副作用：关于信号与线程,我们把在创建信号时block中的代码称之为副作用。
  deliverOn: 切换到指定线程中，可用于回到主线中刷新UI，内容传递切换到指定线程中。
@@ -1056,7 +1030,7 @@
      */
 }
 
-#pragma mark - ReactiveCocoa操作方法之时间
+#pragma mark - ReactiveObjC操作方法之时间
 /**
  timeout：超时，可以让一个信号在一定的时间后，自动报错。
  */
@@ -1103,7 +1077,7 @@
     }];
 }
 
-#pragma mark - ReactiveCocoa操作方法之重复
+#pragma mark - ReactiveObjC操作方法之重复
 /**
  retry重试：只要失败，就会重新执行创建信号中的block，直到成功。
  */
@@ -1171,6 +1145,32 @@
 }
 
 #pragma mark - Private
++ (void)loadData:(void(^)(id))success {
+    NSLog(@"加载数据");
+}
+
++ (RACCommand *)createRACCommand {
+    RACCommand *cmd = [[RACCommand alloc] initWithSignalBlock:^RACSignal * _Nonnull(id  _Nullable input) {
+        // RACCommand的block
+        NSLog(@"执行RACCommand的block, input = %@", input);
+        
+        return [RACSignal createSignal:^RACDisposable * _Nullable(id<RACSubscriber>  _Nonnull subscriber) {
+            
+            // 信号的block
+            NSLog(@"执行RACSignal的block，subscriber = %@", subscriber);
+            // 发送数据 => RACReplaySubject
+            [subscriber sendNext:@"发送数据 == Hello RACCommand"];
+            // 发送完成
+            [subscriber sendCompleted];
+            
+            return [RACDisposable disposableWithBlock:^{
+                NSLog(@"执行RACDisposable的block");
+            }];
+        }];
+    }];
+    return cmd;
+}
+
 /**
  请求分类数据
 

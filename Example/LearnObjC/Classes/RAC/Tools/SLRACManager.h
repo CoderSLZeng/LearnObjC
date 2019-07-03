@@ -12,37 +12,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SLRACManager : NSObject
 
-+ (void)useRACSignal;
+#pragma mark - ReactiveObjC常见类
++ (void)use_RACSignal;
 
-+ (void)useRACSubject;
++ (void)use_RACSubject;
 
-+ (void)useRACReplaySubject;
++ (void)use_RACReplaySubject;
 
-+ (void)useRACTuple;
++ (void)use_RACTuple;
 
-+ (void)useRACMulticastConnection;
++ (void)use_RACMulticastConnection;
 
-+ (void)useRACCommandWithExecute;
++ (void)use_RACCommandWithExecute;
 
-+ (void)useRACCommandWithExecutionSignals;
++ (void)use_RACCommandWithExecutionSignals;
 
-+ (void)useRACCommandWithExecuting;
++ (void)use_RACCommandWithExecuting;
 
-+ (void)useRACCommandWithExecutingSkip;
++ (void)use_RACCommandWithExecutingSkip;
 
-+ (void)useRACCommandWithExecutionSignalsSwitchToLatest;
++ (void)use_RACCommandWithExecutionSignalsSwitchToLatest;
 
-
+#pragma mark - ReactiveObjC核心方法之绑定
 + (void)use_rac_bind;
 
-
+#pragma mark - ReactiveObjC操作方法之映射
 + (void)use_rac_flattenMap;
 
 + (void)use_rac_map;
 
 + (void)use_rac_flattenMap_map;
 
-
+#pragma mark - ReactiveObjC操作方法之组合
 + (void)use_rac_concat;
 
 + (void)use_rac_concat2;
@@ -63,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_combineLatest_reduce;
 
-
+#pragma mark - ReactiveObjC操作方法之过滤
 + (void)use_rac_filter;
 
 + (void)use_rac_ignore;
@@ -80,19 +81,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)use_rac_switchToLatest;
 
+#pragma mark - ReactiveObjC操作方法之秩序
 + (void)use_rac_doNext_doCompleted;
 
-
+#pragma mark - ReactiveObjC操作方法之线程
 + (void)use_rac_deliverOn_subscribeOn;
 
-
+#pragma mark - ReactiveObjC操作方法之时间
 + (void)use_rac_timeout;
 
 + (void)use_rac_interval;
 
 + (void)use_rac_delay;
 
-
+#pragma mark - ReactiveObjC操作方法之重复
 + (void)use_rac_retry;
 
 + (void)use_rac_replay;
