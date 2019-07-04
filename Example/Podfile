@@ -7,6 +7,8 @@ target 'LearnObjC' do
 
   pod 'ReactiveObjC'
   pod 'SVProgressHUD'
+  pod 'SLToolObjCKit/Network'
+  pod 'MJExtension'
 
   target 'LearnObjCTests' do
     inherit! :search_paths

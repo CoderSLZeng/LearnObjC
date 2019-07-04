@@ -1,20 +1,51 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - MJExtension (3.0.17)
   - ReactiveObjC (3.1.1)
+  - SLCategoryObjCKit/String (0.4.1)
+  - SLToolObjCKit/Network (1.0.2):
+    - AFNetworking
+    - SLCategoryObjCKit/String
+    - SVProgressHUD
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
+  - MJExtension
   - ReactiveObjC
+  - SLToolObjCKit/Network
   - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - MJExtension
     - ReactiveObjC
+    - SLCategoryObjCKit
+    - SLToolObjCKit
     - SVProgressHUD
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  MJExtension: 74ec83124a68891619fb7ba9c5c811bbf1691076
   ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  SLCategoryObjCKit: 2db0faf7ecb075b78511b69421141f0550686c68
+  SLToolObjCKit: 980272f786b1aaed91d52535caaf07ac24b2794a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 13b26b2414b3cce176a270ba67c784ec17522f8e
+PODFILE CHECKSUM: 4fbcf2b19be8c18c2e11a1a5e016b8824caf7d2a
 
 COCOAPODS: 1.6.0

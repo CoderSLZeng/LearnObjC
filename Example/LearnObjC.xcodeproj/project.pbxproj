@@ -14,6 +14,11 @@
 		AE24E7BC22B49168006A3273 /* SLFather.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24E7BB22B49168006A3273 /* SLFather.m */; };
 		AE24E7C222B4928A006A3273 /* SLSon.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24E7C122B4928A006A3273 /* SLSon.m */; };
 		AE24E7C722B49808006A3273 /* SLRACExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE24E7C622B49808006A3273 /* SLRACExampleVC.m */; };
+		AE2E208222CD9A4300EF466C /* SLDouBanFMTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E208122CD9A4300EF466C /* SLDouBanFMTVC.m */; };
+		AE2E208522CD9A5F00EF466C /* SLDouBanFMViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E208422CD9A5F00EF466C /* SLDouBanFMViewModel.m */; };
+		AE2E208E22CDA6F500EF466C /* SLDouBanFMChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E208D22CDA6F500EF466C /* SLDouBanFMChannelModel.m */; };
+		AE2E209122CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E209022CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m */; };
+		AE2E209422CDA8DC00EF466C /* SLDouBanFMChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E209322CDA8DC00EF466C /* SLDouBanFMChannelCell.m */; };
 		AE36AAE922B9CD96009215D6 /* SLUseRACTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */; };
 		AE36AAED22B9CEA8009215D6 /* SLRACManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36AAEC22B9CEA8009215D6 /* SLRACManager.m */; };
 		AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DD9922B38A9B009C4963 /* AppDelegate.m */; };
@@ -95,6 +100,16 @@
 		AE24E7C122B4928A006A3273 /* SLSon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLSon.m; sourceTree = "<group>"; };
 		AE24E7C522B49808006A3273 /* SLRACExampleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLRACExampleVC.h; sourceTree = "<group>"; };
 		AE24E7C622B49808006A3273 /* SLRACExampleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLRACExampleVC.m; sourceTree = "<group>"; };
+		AE2E208022CD9A4300EF466C /* SLDouBanFMTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLDouBanFMTVC.h; sourceTree = "<group>"; };
+		AE2E208122CD9A4300EF466C /* SLDouBanFMTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMTVC.m; sourceTree = "<group>"; };
+		AE2E208322CD9A5F00EF466C /* SLDouBanFMViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLDouBanFMViewModel.h; sourceTree = "<group>"; };
+		AE2E208422CD9A5F00EF466C /* SLDouBanFMViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMViewModel.m; sourceTree = "<group>"; };
+		AE2E208C22CDA6F500EF466C /* SLDouBanFMChannelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLDouBanFMChannelModel.h; sourceTree = "<group>"; };
+		AE2E208D22CDA6F500EF466C /* SLDouBanFMChannelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMChannelModel.m; sourceTree = "<group>"; };
+		AE2E208F22CDA84900EF466C /* SLDouBanFMChannelCellViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLDouBanFMChannelCellViewModel.h; sourceTree = "<group>"; };
+		AE2E209022CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMChannelCellViewModel.m; sourceTree = "<group>"; };
+		AE2E209222CDA8DC00EF466C /* SLDouBanFMChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLDouBanFMChannelCell.h; sourceTree = "<group>"; };
+		AE2E209322CDA8DC00EF466C /* SLDouBanFMChannelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMChannelCell.m; sourceTree = "<group>"; };
 		AE36AAE722B9CD96009215D6 /* SLUseRACTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLUseRACTVC.h; sourceTree = "<group>"; };
 		AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLUseRACTVC.m; sourceTree = "<group>"; };
 		AE36AAEB22B9CEA8009215D6 /* SLRACManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLRACManager.h; sourceTree = "<group>"; };
@@ -252,6 +267,8 @@
 				AE8DA43C22CC883300A08D50 /* SLLoginVC.h */,
 				AE8DA43D22CC883300A08D50 /* SLLoginVC.m */,
 				AE8DA43E22CC883300A08D50 /* SLLoginVC.xib */,
+				AE2E208022CD9A4300EF466C /* SLDouBanFMTVC.h */,
+				AE2E208122CD9A4300EF466C /* SLDouBanFMTVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -391,6 +408,10 @@
 				AE83867E22BA313F00077B5B /* SLCountryViewModel.m */,
 				AE8DA44122CC89E600A08D50 /* SLLoginViewModel.h */,
 				AE8DA44222CC89E600A08D50 /* SLLoginViewModel.m */,
+				AE2E208322CD9A5F00EF466C /* SLDouBanFMViewModel.h */,
+				AE2E208422CD9A5F00EF466C /* SLDouBanFMViewModel.m */,
+				AE2E208F22CDA84900EF466C /* SLDouBanFMChannelCellViewModel.h */,
+				AE2E209022CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -411,6 +432,8 @@
 				AE9B2DE822B76B96004946D5 /* SLContryView.h */,
 				AE9B2DE922B76B96004946D5 /* SLContryView.m */,
 				AE9B2DED22B76BB8004946D5 /* SLContryView.xib */,
+				AE2E209222CDA8DC00EF466C /* SLDouBanFMChannelCell.h */,
+				AE2E209322CDA8DC00EF466C /* SLDouBanFMChannelCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -422,6 +445,8 @@
 				AE9B2DE622B76A80004946D5 /* SLCountryModel.m */,
 				AE8DA44422CC8ABB00A08D50 /* SLAccountModel.h */,
 				AE8DA44522CC8ABB00A08D50 /* SLAccountModel.m */,
+				AE2E208C22CDA6F500EF466C /* SLDouBanFMChannelModel.h */,
+				AE2E208D22CDA6F500EF466C /* SLDouBanFMChannelModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -623,14 +648,22 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-LearnObjC/Pods-LearnObjC-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
+				"${BUILT_PRODUCTS_DIR}/SLCategoryObjCKit/SLCategoryObjCKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SLToolObjCKit/SLToolObjCKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SLCategoryObjCKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SLToolObjCKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -718,10 +751,13 @@
 				AE9B2DE722B76A80004946D5 /* SLCountryModel.m in Sources */,
 				AE24E7B922B490FD006A3273 /* SLSuperOrSuperClassVC.m in Sources */,
 				AE36AAE922B9CD96009215D6 /* SLUseRACTVC.m in Sources */,
+				AE2E208E22CDA6F500EF466C /* SLDouBanFMChannelModel.m in Sources */,
 				AE8DA44322CC89E600A08D50 /* SLLoginViewModel.m in Sources */,
 				AE8DA44622CC8ABB00A08D50 /* SLAccountModel.m in Sources */,
 				AE83867A22BA28CB00077B5B /* SLPickerViewModel.m in Sources */,
+				AE2E209422CDA8DC00EF466C /* SLDouBanFMChannelCell.m in Sources */,
 				AE24E7AF22B482C2006A3273 /* SLPerson.m in Sources */,
+				AE2E209122CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m in Sources */,
 				AE73DDDE22B39BD3009C4963 /* SLCalculatorManager.m in Sources */,
 				AE9B2DE022B7450A004946D5 /* SLCustomRACView.m in Sources */,
 				AE24E7C222B4928A006A3273 /* SLSon.m in Sources */,
@@ -735,6 +771,8 @@
 				AE73DDDA22B391F5009C4963 /* SLFunctionVC.m in Sources */,
 				AE24E7BC22B49168006A3273 /* SLFather.m in Sources */,
 				AE24E7B322B48829006A3273 /* NSObject+KVO.m in Sources */,
+				AE2E208522CD9A5F00EF466C /* SLDouBanFMViewModel.m in Sources */,
+				AE2E208222CD9A4300EF466C /* SLDouBanFMTVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
