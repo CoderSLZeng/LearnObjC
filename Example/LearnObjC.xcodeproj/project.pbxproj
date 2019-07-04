@@ -19,6 +19,7 @@
 		AE2E208E22CDA6F500EF466C /* SLDouBanFMChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E208D22CDA6F500EF466C /* SLDouBanFMChannelModel.m */; };
 		AE2E209122CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E209022CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m */; };
 		AE2E209422CDA8DC00EF466C /* SLDouBanFMChannelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E209322CDA8DC00EF466C /* SLDouBanFMChannelCell.m */; };
+		AE2E209722CDDFB300EF466C /* SLRACSubExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2E209622CDDFB300EF466C /* SLRACSubExampleVC.m */; };
 		AE36AAE922B9CD96009215D6 /* SLUseRACTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */; };
 		AE36AAED22B9CEA8009215D6 /* SLRACManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE36AAEC22B9CEA8009215D6 /* SLRACManager.m */; };
 		AE73DD9A22B38A9B009C4963 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE73DD9922B38A9B009C4963 /* AppDelegate.m */; };
@@ -110,6 +111,8 @@
 		AE2E209022CDA84900EF466C /* SLDouBanFMChannelCellViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMChannelCellViewModel.m; sourceTree = "<group>"; };
 		AE2E209222CDA8DC00EF466C /* SLDouBanFMChannelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLDouBanFMChannelCell.h; sourceTree = "<group>"; };
 		AE2E209322CDA8DC00EF466C /* SLDouBanFMChannelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLDouBanFMChannelCell.m; sourceTree = "<group>"; };
+		AE2E209522CDDFB300EF466C /* SLRACSubExampleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLRACSubExampleVC.h; sourceTree = "<group>"; };
+		AE2E209622CDDFB300EF466C /* SLRACSubExampleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLRACSubExampleVC.m; sourceTree = "<group>"; };
 		AE36AAE722B9CD96009215D6 /* SLUseRACTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLUseRACTVC.h; sourceTree = "<group>"; };
 		AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLUseRACTVC.m; sourceTree = "<group>"; };
 		AE36AAEB22B9CEA8009215D6 /* SLRACManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLRACManager.h; sourceTree = "<group>"; };
@@ -262,13 +265,15 @@
 			children = (
 				AE36AAE722B9CD96009215D6 /* SLUseRACTVC.h */,
 				AE36AAE822B9CD96009215D6 /* SLUseRACTVC.m */,
-				AE24E7C522B49808006A3273 /* SLRACExampleVC.h */,
-				AE24E7C622B49808006A3273 /* SLRACExampleVC.m */,
 				AE8DA43C22CC883300A08D50 /* SLLoginVC.h */,
 				AE8DA43D22CC883300A08D50 /* SLLoginVC.m */,
 				AE8DA43E22CC883300A08D50 /* SLLoginVC.xib */,
 				AE2E208022CD9A4300EF466C /* SLDouBanFMTVC.h */,
 				AE2E208122CD9A4300EF466C /* SLDouBanFMTVC.m */,
+				AE24E7C522B49808006A3273 /* SLRACExampleVC.h */,
+				AE24E7C622B49808006A3273 /* SLRACExampleVC.m */,
+				AE2E209522CDDFB300EF466C /* SLRACSubExampleVC.h */,
+				AE2E209622CDDFB300EF466C /* SLRACSubExampleVC.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -744,6 +749,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE2E209722CDDFB300EF466C /* SLRACSubExampleVC.m in Sources */,
 				AE36AAED22B9CEA8009215D6 /* SLRACManager.m in Sources */,
 				AE73DDCE22B38CFD009C4963 /* SLHomeTVC.m in Sources */,
 				AE73DDD422B39160009C4963 /* SLChianVC.m in Sources */,

@@ -21,6 +21,9 @@
 #pragma mark - Views
 #import "SLCustomRACView.h"
 
+#pragma mark - Controllers
+#import "SLRACSubExampleVC.h"
+
 #pragma mark - ViewModels
 #import "SLPickerViewModel.h"
 
@@ -46,6 +49,8 @@
 @property (weak, nonatomic) UILabel *label;
 /** 文本输入框 */
 @property (weak, nonatomic) UITextField *textField;
+
+@property (weak, nonatomic) UIButton *modalBtn;
 
 @end
 
@@ -108,6 +113,8 @@
     
     self.label.frame = CGRectMake(50, 270, 300, 30);
     self.textField.frame = CGRectMake(50, 320, 300, 30);
+    
+    self.modalBtn.frame = CGRectMake(20, 370, 300, 30);
 }
 
 - (void)updateUIWithHotData:(NSString *)hot newData:(NSString *)new {
@@ -170,6 +177,17 @@
 - (void)useSignalForControlEvents {
     [[self.selectContryBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         NSLog(@"【%d】%s --> 事件监听 %@", __LINE__, __func__, x);
+    }];
+    
+    @weakify(self)
+    [[self.modalBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
+        @strongify(self)
+        SLRACSubExampleVC *subVC = [[SLRACSubExampleVC alloc] init];
+        subVC.delegateSignal = [RACSubject subject];
+        [subVC.delegateSignal subscribeNext:^(id  _Nullable x) {
+            NSLog(@"点击了subVC的通知按钮");
+        }];
+        [self presentViewController:subVC animated:YES completion:nil];
     }];
 }
 
@@ -293,7 +311,15 @@
  RAC宏 模式监听
  */
 - (void)use_rac_marco {
+    // RAC:给某个类的某个属性绑定一个信号，只要接收信号，就改变这个类的属性
+    // 只要文本框文字改变，就会修改label的文字
     RAC(self.label, text) = self.textField.rac_textSignal;
+    
+    // 监听某个对象的某个属性转换为信号
+    [RACObserve(self.view, center) subscribeNext:^(id x) {
+        
+        NSLog(@"%@",x);
+    }];
 }
 
 #pragma mark RAC高级用法
@@ -452,6 +478,19 @@
         _textField = textField;
     }
     return _textField;
+}
+
+- (UIButton *)modalBtn {
+    if (!_modalBtn) {
+        UIButton *modalBtn = [[UIButton alloc] init];
+        modalBtn.backgroundColor = [UIColor blueColor];
+        [modalBtn setTitle:@"Modal to SLRACSubExampleVC" forState:UIControlStateNormal];
+        [modalBtn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+        [self.view addSubview:modalBtn];
+        _modalBtn = modalBtn;
+    }
+    
+    return _modalBtn;
 }
 
 - (SLPickerViewModel *)pickerViewModel {
