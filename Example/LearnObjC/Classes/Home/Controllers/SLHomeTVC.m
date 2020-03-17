@@ -73,7 +73,8 @@
              @"super和superclass区别-SLSuperOrSuperClassVC",
              @"ReactiveObjC的基本使用-SLUseRACTVC",
              @"ReactiveObjC + MVVM 实战一：登录界面-SLLoginVC",
-             @"ReactiveObjC + MVVM 实战二：网络请求数据-SLDouBanFMTVC"
+             @"ReactiveObjC + MVVM 实战二：网络请求数据-SLDouBanFMTVC",
+             @"自定义流水布局-SLFlowLayoutAlbumVC"
              ];
 }
 @end
